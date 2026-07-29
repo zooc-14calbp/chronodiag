@@ -50,9 +50,9 @@ A dataset-specific parser may add `site_id`, `specimen_id`, `tree_id`, and
 
 ## Composition-aware diagnostics
 
-The first composition-aware API evaluates **explicit, auditable partitions**.
-Random partition generation is kept separate so that the same tree compositions
-can be evaluated exactly in R and Python.
+Composition functions evaluate **explicit, auditable memberships**. Random
+partition or bootstrap generation is kept separate so that identical tree
+compositions can be evaluated in R and Python.
 
 ### Subset versus full chronology
 
@@ -96,8 +96,57 @@ pool and differ in size by at most one unit. `min_depth_fraction = 1` is the
 complete-period default; lower values require an explicit choice and are recorded
 in every output row.
 
-The full contract is in
-`design/composition_diagnostics_spec_v01.md`.
+### Explicit tree bootstrap
+
+The bootstrap evaluator accepts positive integer multiplicities:
+
+```r
+boot <- data.frame(
+  replicate_id = c("B01", "B01", "B01"),
+  unit_id = c("T01", "T02", "T03"),
+  multiplicity = c(2, 1, 1)
+)
+bootstrap_results <- tree_bootstrap(tree_level, boot, require_full_size = FALSE)
+```
+
+```python
+from chronodiag import tree_bootstrap
+
+bootstrap_results = tree_bootstrap(
+    tree_level,
+    {"B01": ["T01", "T01", "T02", "T03"]},
+    require_full_size=False,
+)
+```
+
+Ordinary `N`-out-of-`N` draws are required by default. Output retains the nominal
+draw count, unique and omitted units, multiplicities, Kish effective unit count,
+and direct chronology differences. Bootstrap/full correlation is descriptive
+because the two chronologies share represented trees.
+
+### Leave-one-tree-out influence
+
+```r
+loto_results <- leave_one_tree_out(tree_level)
+```
+
+```python
+from chronodiag import leave_one_tree_out
+
+loto_results = leave_one_tree_out(tree_level)
+```
+
+A reduced chronology shares `N - 1` trees with the full chronology, so its
+correlation is mechanically high for moderate or large `N`. The primary outputs
+are RMS, mean absolute, and maximum absolute chronology differences. On one fixed
+complete period, the result also reports changes in mean interseries correlation,
+EPS, and effective dimension; it never silently switches to pairwise-complete
+covariance estimation.
+
+The full contracts are in:
+
+- `design/composition_diagnostics_spec_v01.md`;
+- `design/influence_diagnostics_spec_v01.md`.
 
 ## Repository design
 
@@ -142,21 +191,24 @@ rwl = read_chronodiag("measurements.rwl")
 ## Validation status
 
 - The baseline Python suite passed on Python 3.10, 3.12, and 3.13 in GitHub Actions.
-- The integrated Python suite contains 26 passing baseline and composition tests.
+- The integrated suite contains 39 baseline, composition, bootstrap, and LOTO
+  tests.
 - A separate integration audit successfully read six full ITRDB files: ca533,
   germ011, germ012, germ6, fran003, and brit042.
 - ca533 retained all 23,276 observations, including 234 zero-width rings.
 - A Python wheel builds successfully and reproduces the six-file ITRDB audit when installed from the wheel.
-- The baseline R package passed shared metric/I-O parity and `R CMD check` with
-  0 errors, 0 warnings, and 0 notes.
-- The composition branch adds ten Python tests plus frozen R/Python parity
-  fixtures for subset-to-full and disjoint split-half diagnostics.
+- The baseline R package passed shared metric/I-O/composition parity and
+  `R CMD check` with 0 errors, 0 warnings, and 0 notes.
+- Frozen R/Python fixtures cover subset-to-full, disjoint split-half, explicit
+  tree bootstrap, LOTO influence, and exact EPS/SSS linkage cases.
 
 ## Immediate next milestone
 
-1. merge the explicit subset and split-half diagnostic contract after CI review;
-2. add auditable partition generators without requiring identical R/Python RNG streams;
-3. implement tree bootstrap and leave-one-tree-out influence using the same
-   chronology-construction contract;
-4. apply the diagnostics to the same-EPS simulations and selected empirical datasets;
+1. add auditable random/enumerative partition generators without requiring
+   identical R/Python RNG streams;
+2. apply subset, split-half, bootstrap, and LOTO diagnostics to the same-EPS
+   simulations;
+3. establish empirical preprocessing adapters for ca533, GERM012, FRAN003, and
+   Yoshino;
+4. add sample-depth and temporal-stability diagnostics; and
 5. update the manuscript and Supplement from the frozen mathematical contract.

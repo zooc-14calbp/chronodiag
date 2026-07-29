@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Added explicit `tree_bootstrap()` and `leave_one_tree_out()` implementations in
+  native R and Python.
+- Defined standard `N`-out-of-`N` tree bootstrap draws through auditable positive
+  integer multiplicities, with an explicit opt-in for `m`-out-of-`N` designs.
+- Added bootstrap membership metadata including unique, omitted, and duplicated
+  units, maximum multiplicity, and Kish effective unit count.
+- Made direct chronology changes—RMS, standardized RMS, mean absolute, maximum
+  absolute, signed maximum-year difference, and variance ratio—the primary
+  bootstrap/LOTO outputs; shared-data correlations remain descriptive.
+- Added LOTO changes in mean correlation, EPS, and effective dimension evaluated
+  on one fixed full complete period so unit influence is not confounded with an
+  interval change.
+- Added a language-neutral influence-diagnostics specification and result schema.
+- Added deterministic bootstrap and LOTO fixtures, frozen R/Python expected
+  outputs, a fixture generator, and CI parity checks.
 - Added explicit `subset_stability()` and `split_half_stability()` implementations
   in native R and Python.
 - Added a language-neutral composition-diagnostics specification and result schema.

@@ -1,4 +1,4 @@
-# Numerical contract v03
+# Numerical contract v04
 
 ## Algebra
 
@@ -52,7 +52,7 @@ explicit disjoint A/B chronologies. Its `shared_unit_count` must equal zero. By
 default A and B must exhaust the full biological-unit pool and their sizes may
 differ by at most one unit.
 
-Every syntactically valid replicate returns a row with one of:
+Every syntactically valid comparison returns a row with one of:
 
 - `ok`;
 - `insufficient_overlap`;
@@ -60,6 +60,70 @@ Every syntactically valid replicate returns a row with one of:
 
 The last two states have missing correlation outputs; malformed memberships are
 hard errors.
+
+## Explicit tree bootstrap
+
+A bootstrap replicate is represented by positive integer multiplicities `m_i`.
+The nominal draw count is
+
+\[
+M=\sum_i m_i.
+\]
+
+The default contract requires `M = N`. An `m`-out-of-`N` design must be enabled
+explicitly. For an arithmetic-mean bootstrap chronology, repeated draws are
+integer weights:
+
+\[
+C_b(t)=
+\frac{\sum_i m_i x_i(t)I_i(t)}{\sum_i m_iI_i(t)}.
+\]
+
+The weighted sample-depth rule uses the nominal-draw depth
+
+\[
+d_b(t)=\sum_i m_iI_i(t)
+\]
+
+and requires `d_b(t) >= ceil(f M)`. This is algorithmic bootstrap depth, not a
+claim of additional biological independence.
+
+Multiplicity concentration is reported as the Kish effective unit count,
+
+\[
+N_{Kish}=\frac{(\sum_i m_i)^2}{\sum_i m_i^2}.
+\]
+
+For positive integer multiplicities,
+
+\[
+1 \le N_{Kish}\le N_{unique}\le M.
+\]
+
+Bootstrap/full correlation is descriptive because the two chronologies share the
+unique represented units. Direct chronology differences are the primary outputs:
+mean difference, RMS difference, RMS standardized by the sample standard deviation
+of the full chronology over the same years, mean and maximum absolute difference,
+the year and sign of the maximum, and the variance ratio.
+
+## Leave-one-tree-out influence
+
+For complete arithmetic-mean chronologies,
+
+\[
+C_{-i}(t)-C_N(t)=\frac{C_{-i}(t)-x_i(t)}{N}.
+\]
+
+A LOTO chronology shares `N - 1` units with the full chronology. Its correlation
+is therefore descriptive and must not be treated as the primary influence metric.
+The direct difference outputs are the same as for bootstrap/full comparison.
+
+Changes in `rbar`, EPS, and effective dimension are evaluated on one fixed period
+where all units in the original pool are complete. The period must not change after
+omission. If the complete period is insufficient, a series is constant, or the
+correlation matrix is invalid, structural outputs remain missing and
+`structure_status` records the reason. Pairwise-complete substitution and silent
+matrix repair are prohibited.
 
 ## Required invariants
 
@@ -79,7 +143,17 @@ hard errors.
 - complete-period frozen composition fixtures match across R and Python;
 - the exact exchangeable composition fixture satisfies
   `subset_to_full_r2 == SSS(3 | 6, 0.3)` and
-  `equal_half_disjoint_r == EPS(3, 0.3)`.
+  `equal_half_disjoint_r == EPS(3, 0.3)`;
+- every bootstrap multiplicity is a positive integer and replicate–unit rows are
+  unique;
+- a default tree-bootstrap replicate has `nominal_draw_count == full_pool_size`;
+- `1 <= kish_effective_unit_count <= unique_unit_count <= nominal_draw_count`;
+- an identity bootstrap has correlation one and all direct differences equal zero;
+- bootstrap/full output has `shared_unit_count == unique_unit_count`;
+- LOTO output has `shared_unit_count == full_pool_size - 1`;
+- every LOTO row uses the same `structure_n_years` and full structural baseline;
+- the frozen influence fixture identifies T06 as the largest RMS LOTO influence
+  while its reduced/full correlation remains above 0.99.
 
 ## Error handling
 
@@ -99,7 +173,11 @@ Functions must reject:
 - overlapping split-half groups;
 - non-exhaustive split halves unless explicitly allowed;
 - unbalanced split halves unless explicitly allowed;
-- sample-depth fractions outside `(0, 1]`.
+- sample-depth fractions outside `(0, 1]`;
+- missing, zero, negative, fractional, or non-finite bootstrap multiplicities;
+- duplicate bootstrap replicate–unit rows;
+- bootstrap draw counts different from `N` unless explicitly allowed;
+- LOTO input containing fewer than two biological units.
 
 Negative plug-in EPS values must not be clipped or re-labelled as reliability.
 No function may silently repair a matrix. A future optional repair function may
@@ -110,5 +188,6 @@ be added, but its use must be explicit and recorded in output metadata.
 - scalar algebra: `1e-12`;
 - matrix/eigenvalue summaries: `1e-10`;
 - frozen-index composition outputs: `1e-12`;
+- frozen bootstrap and LOTO outputs: `1e-12`;
 - future stochastic distribution summaries: tolerance defined by the simulation
   contract rather than bitwise RNG equality.

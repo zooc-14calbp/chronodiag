@@ -107,8 +107,8 @@ Required metadata:
 - subset-to-complement correlation distribution, which avoids shared-series
   inflation;
 - repeated split-half correlation, both raw and optionally Spearman–Brown adjusted;
-- tree-bootstrap distributions;
-- leave-one-tree-out influence using differences, not only correlations.
+- tree-bootstrap distributions based on explicit multiplicities;
+- leave-one-tree-out influence using direct differences, not only correlations.
 
 ### 5.4 Sample-depth and temporal stability
 
@@ -142,7 +142,7 @@ Suggested tolerances for deterministic fixtures:
 
 - scalar algebraic results: `1e-12`;
 - matrix/eigenvalue summaries: `1e-10`;
-- resampling summaries: `1e-8` when frozen indices are used.
+- frozen composition, bootstrap, and LOTO outputs: `1e-12`.
 
 ## 8. Provisional public APIs
 
@@ -171,25 +171,28 @@ The public GitHub repository should contain:
 - machine-readable outputs needed to reproduce paper figures;
 - documentation and software citation metadata.
 
-Private Yoshino measurements must remain outside the repository. Public scripts
-should accept a local path or configuration entry so that the same workflow can be
-run privately without embedding restricted data.
+The Yoshino raw ring-width data may be included as a public worked example after
+coauthor approval. Its measurement keycode remains the authoritative identifier,
+and specimen means must be reconstructed by the workflow rather than distributed
+as a second source of truth. The original Yoshino publication remains the
+scientific description of the material and chronology development.
 
 ## 10. Development stages
 
-### Milestone 0.1 — algebra and specification
+### Milestone 0.1 — algebra and specification — completed
 
 - EPS/SSS;
 - effective dimension;
 - shared deterministic fixtures;
 - R/Python parity tests.
 
-### Milestone 0.2 — composition diagnostics
+### Milestone 0.2 — composition diagnostics — implemented, empirical application pending
 
-- subset-to-full and subset-to-complement distributions;
+- subset-to-full and disjoint/subset-to-complement evaluation;
 - split-half;
-- bootstrap;
-- leave-one-tree-out.
+- explicit tree bootstrap;
+- leave-one-tree-out;
+- frozen cross-language membership and influence fixtures.
 
 ### Milestone 0.3 — temporal diagnostics and reporting
 
