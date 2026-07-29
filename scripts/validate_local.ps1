@@ -87,6 +87,9 @@ if ($SkipRCheck) {
             & $Rscript.Source "r/parity_tests/test_shared_composition.R"
             if ($LASTEXITCODE -ne 0) { throw "R shared-composition parity test failed." }
 
+            & $Rscript.Source "r/parity_tests/test_shared_influence.R"
+            if ($LASTEXITCODE -ne 0) { throw "R shared-influence parity test failed." }
+
             & $Rscript.Source -e "quit(status=if(requireNamespace('dplR', quietly=TRUE)) 0 else 2)"
             if ($LASTEXITCODE -eq 0) {
                 & $Rscript.Source "r/parity_tests/test_shared_io.R"
