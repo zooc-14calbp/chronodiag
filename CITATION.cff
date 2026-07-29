@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "Please cite the software and the associated paper."
+title: "chronodiag: Assistive diagnostics for tree-ring chronology coherence"
+type: software
+authors:
+  - family-names: Yonenobu
+    given-names: Hitoshi
+    orcid: "https://orcid.org/0000-0002-1596-7543"
+version: "0.0.1-dev"
+date-released: "2026-07-29"
+repository-code: "TO_BE_ASSIGNED"
+license: "TO_BE_SELECTED"

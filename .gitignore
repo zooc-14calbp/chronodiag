@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# R
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rcheck/
+check/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Project-local generated output
+validation_output/
+reports/_generated/
+
+# Local Dropbox synchronization records
+SYNC_MANIFEST*.csv
+VALIDATION_PATCH_MANIFEST*.csv
+PRE_GITHUB_VALIDATION_MANIFEST*.csv

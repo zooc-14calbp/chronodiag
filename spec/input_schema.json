@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Chronology diagnostic long-format input",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "year",
+      "series_id",
+      "tree_id",
+      "value"
+    ],
+    "properties": {
+      "year": {
+        "type": "integer"
+      },
+      "series_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "tree_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "core_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "site_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "measurement": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "standardization_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "value": {
+        "type": [
+          "number",
+          "null"
+        ]
+      }
+    },
+    "additionalProperties": true
+  }
+}

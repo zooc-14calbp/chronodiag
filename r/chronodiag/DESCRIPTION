@@ -1,0 +1,18 @@
+Package: chronodiag
+Type: Package
+Title: Assistive Diagnostics for Tree-Ring Chronology Coherence
+Version: 0.0.1.9000
+Authors@R: person("Hitoshi", "Yonenobu", email = "yn@naruto-u.ac.jp", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1596-7543"))
+Description: Native R implementation of model-relative reliability,
+    covariance architecture, and composition-aware diagnostics for tree-ring
+    chronologies. The package does not assign a universal chronology-strength
+    score or automatic pass/fail classification.
+License: file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Suggests:
+    dplR,
+    roxygen2,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

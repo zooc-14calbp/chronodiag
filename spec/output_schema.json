@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Chronology diagnostic profile output",
+  "type": "object",
+  "required": [
+    "metadata",
+    "model_relative_reliability",
+    "covariance_architecture",
+    "composition_stability",
+    "temporal_stability"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object"
+    },
+    "model_relative_reliability": {
+      "type": "object"
+    },
+    "covariance_architecture": {
+      "type": "object"
+    },
+    "composition_stability": {
+      "type": "object"
+    },
+    "temporal_stability": {
+      "type": "object"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

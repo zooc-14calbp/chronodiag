@@ -1,0 +1,7 @@
+archive_id,filename,dataset_doi,sha256,publication_status,provisional_role
+ca533,ca533.rwl,https://doi.org/10.25921/f65s-sx21,2df48948af003c2fd19d9128de3e8b46490af283ff2adc40ff207c8bf550d11b,no suggested publication in downloaded ITRDB metadata,canonical R/Python and dplR/dplPy benchmark
+germ011,germ011.rwl,https://doi.org/10.25921/zjmb-jv68,2f0148a67a51a013d23052ad1837719f45064788de0dd75691d1bc3cc753a2ff,no suggested publication in downloaded ITRDB metadata,historical-composition stress candidate
+germ012,germ012.rwl,https://doi.org/10.25921/az18-vr59,fa78691838acdf2c6017c4da3921bd199f936d8c7bdf4b68831dbfd9b9f57158,no suggested publication in downloaded ITRDB metadata,hierarchical tree/core replication case
+germ6,germ6.rwl,https://doi.org/10.25921/tntt-q680,9e72b53ab2fc3019ad2f5488fdf6414a4501d4b8be6a0eb088387ca925098907,no suggested publication in downloaded ITRDB metadata,large historical-composition stress candidate
+fran003,fran003.rwl,https://doi.org/10.25921/g06k-g948,f9b38a876e1d51f5d764a9ba4e3635276390dece940f3f71b83f814d76ff6ec7,no suggested publication in downloaded ITRDB metadata,long complete-case covariance/composition case
+brit042,brit042.rwl,https://doi.org/10.25921/4ttr-8185,67f3578ebd2f26a06d8e2edd3b2e712c761756ba1632503ca5a7eddc722cbd68,no suggested publication in downloaded ITRDB metadata,long comparison and RWL I/O stress candidate

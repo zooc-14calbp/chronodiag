@@ -1,0 +1,62 @@
+version: 1
+status: minimal_prototype
+aim: >-
+  Demonstrate that chronologies with the same expected tree count, mean
+  interseries correlation, and EPS can have different covariance architecture
+  and composition stability.
+
+stage_A:
+  fixed_design:
+    n_trees: 18
+    n_years: 100
+    target_eps: 0.85
+    target_mean_interseries_correlation: 0.23943661971830982
+    replications: 1000
+    chronology_method: arithmetic_mean_of_standardized_tree_series
+  scenarios:
+    exchangeable:
+      description: equal loading and independent equal-variance residuals
+    unequal_loadings:
+      description: smoothly varying one-factor loadings scaled to the target mean correlation
+    two_clusters:
+      description: two groups of 9 trees with within-group correlation 0.50 and between-group correlation chosen to preserve the target mean correlation
+      within_group_correlation: 0.50
+      between_group_correlation: 0.007824726134585196
+    influential_trees:
+      description: three high-loading trees and fifteen lower-loading trees, scaled to the target mean correlation
+      high_loading: 0.95
+      n_high_loading: 3
+      low_loading: 0.400207481631523
+  outputs:
+    - estimated_mean_interseries_correlation
+    - eps
+    - effective_dimension
+    - leading_eigenvalue_fraction
+    - subset_to_full_distribution_by_subset_size
+    - subset_to_complement_distribution_by_subset_size
+    - split_half_distribution
+    - tree_bootstrap_dispersion
+    - leave_one_tree_out_influence
+    - latent_common_component_recovery_when_defined
+
+stage_B:
+  scenarios:
+    time_varying_loadings:
+      description: dominant tree group changes between non-overlapping halves of the record
+  outputs:
+    - period_specific_mean_interseries_correlation
+    - period_specific_eps
+    - period_specific_effective_dimension
+    - change_in_tree_influence_rank
+    - change_in_subset_stability
+
+stage_C:
+  factorial:
+    n_trees: [5, 10, 18, 30, 60]
+    n_years: [50, 100, 200]
+    ar1: [0.0, 0.3, 0.6]
+    missingness: [none, declining_sample_depth]
+    core_structure: [one_series_per_tree, multiple_cores_per_tree]
+  note: >-
+    Stage C begins only after Stage A produces a clear same-EPS/different-structure
+    result and both language implementations pass the shared deterministic tests.

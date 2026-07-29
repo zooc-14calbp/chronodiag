@@ -1,0 +1,53 @@
+name: cross-language-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e "python[test]"
+      - run: python -m pytest python/tests -q
+
+  r:
+    name: R package and parity checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          working-directory: r/chronodiag
+          extra-packages: |
+            any::rcmdcheck
+            any::roxygen2
+      - name: Generate R documentation
+        working-directory: r/chronodiag
+        run: Rscript -e 'roxygen2::roxygenise()'
+      - name: Run shared metric parity fixtures
+        run: Rscript r/parity_tests/test_shared_metrics.R
+      - name: Run shared RWL I/O fixture
+        run: Rscript r/parity_tests/test_shared_io.R
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          working-directory: r/chronodiag
+          error-on: '"warning"'
