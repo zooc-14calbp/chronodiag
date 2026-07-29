@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "chronodiag influence diagnostic result row",
+  "type": "object",
+  "required": [
+    "diagnostic",
+    "chronology_method",
+    "min_depth_fraction",
+    "min_overlap",
+    "full_pool_size",
+    "n_years",
+    "rms_difference",
+    "mean_absolute_difference",
+    "max_absolute_difference",
+    "status"
+  ],
+  "properties": {
+    "diagnostic": {
+      "enum": ["tree_bootstrap_to_full", "leave_one_tree_out"]
+    },
+    "replicate_id": {"type": ["string", "null"]},
+    "omitted_unit_id": {"type": ["string", "null"]},
+    "chronology_method": {"enum": ["mean", "median"]},
+    "correlation_method": {"const": "pearson"},
+    "min_depth_fraction": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+    "min_overlap": {"type": "integer", "minimum": 1},
+    "full_pool_size": {"type": "integer", "minimum": 2},
+    "nominal_draw_count": {"type": ["integer", "null"], "minimum": 1},
+    "unique_unit_count": {"type": ["integer", "null"], "minimum": 1},
+    "omitted_unit_count": {"type": ["integer", "null"], "minimum": 0},
+    "duplicated_unit_count": {"type": ["integer", "null"], "minimum": 0},
+    "maximum_multiplicity": {"type": ["integer", "null"], "minimum": 1},
+    "kish_effective_unit_count": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "retained_unit_count": {"type": ["integer", "null"], "minimum": 1},
+    "shared_unit_count": {"type": "integer", "minimum": 0},
+    "all_units_represented": {"type": ["boolean", "null"]},
+    "correlation": {"type": ["number", "null"], "minimum": -1, "maximum": 1},
+    "squared_correlation": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "n_years": {"type": "integer", "minimum": 0},
+    "start_year": {"type": ["integer", "null"]},
+    "end_year": {"type": ["integer", "null"]},
+    "mean_difference": {"type": ["number", "null"]},
+    "rms_difference": {"type": ["number", "null"], "minimum": 0},
+    "standardized_rms_difference": {"type": ["number", "null"], "minimum": 0},
+    "mean_absolute_difference": {"type": ["number", "null"], "minimum": 0},
+    "max_absolute_difference": {"type": ["number", "null"], "minimum": 0},
+    "max_abs_year": {"type": ["integer", "null"]},
+    "signed_difference_at_max": {"type": ["number", "null"]},
+    "variance_ratio": {"type": ["number", "null"], "minimum": 0},
+    "structure_status": {
+      "type": ["string", "null"],
+      "enum": ["ok", "insufficient_complete_period", "constant_series", "invalid_structure", null]
+    },
+    "status": {
+      "enum": ["ok", "insufficient_overlap", "constant_chronology"]
+    }
+  },
+  "additionalProperties": true
+}
