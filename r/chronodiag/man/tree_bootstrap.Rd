@@ -19,7 +19,8 @@ tree_bootstrap(
 \arguments{
 \item{data}{Long-form data containing one value per year and biological unit.}
 
-\item{multiplicities}{A data frame with \code{replicate_id}, \code{unit_id}, and positive integer \code{multiplicity}, or a named list containing literal unit draws.}
+\item{multiplicities}{A data frame with \code{replicate_id}, \code{unit_id}, and positive
+integer \code{multiplicity}, or a named list containing literal unit draws.}
 
 \item{year_col}{Name of the calendar-year column.}
 
@@ -27,17 +28,23 @@ tree_bootstrap(
 
 \item{value_col}{Name of the numeric value column.}
 
-\item{chronology_method}{Arithmetic \code{"mean"} or multiplicity-expanded \code{"median"} chronology.}
+\item{chronology_method}{Arithmetic \code{"mean"} or multiplicity-expanded
+\code{"median"} chronology.}
 
 \item{min_depth_fraction}{Minimum fraction of nominal draws required in a year.}
 
 \item{min_overlap}{Minimum number of common chronology years.}
 
-\item{require_full_size}{Require each replicate to contain \code{N} nominal draws, where \code{N} is the full number of biological units.}
+\item{require_full_size}{Require each replicate to contain \code{N} nominal draws,
+where \code{N} is the full number of biological units.}
 }
 \value{
-One auditable result row per bootstrap replicate. Correlation with the full chronology is descriptive because the chronologies share units; direct difference metrics are the primary influence outputs.
+One auditable result row per bootstrap replicate. Correlation with the
+full chronology is descriptive because the chronologies share units; direct
+difference metrics are the primary influence outputs.
 }
 \description{
-Evaluate bootstrap draws supplied as positive integer multiplicities. Random draws are intentionally generated outside this numerical engine so that the same bootstrap compositions can be audited in R and Python.
+Evaluate bootstrap draws supplied as positive integer multiplicities. Random
+draws are intentionally generated outside this numerical engine so that the
+same bootstrap compositions can be audited in R and Python.
 }

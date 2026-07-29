@@ -30,8 +30,12 @@ leave_one_tree_out(
 \item{min_overlap}{Minimum number of common chronology years.}
 }
 \value{
-One auditable result row per omitted unit, including direct chronology differences and changes in mean correlation, EPS, and effective dimension.
+One auditable result row per omitted unit, including direct chronology
+differences and changes in mean correlation, EPS, and effective dimension.
 }
 \description{
-Omit each biological unit in turn and compare the reduced chronology with the full chronology. Because the two chronologies share \code{N - 1} units, correlation is descriptive; direct chronology differences and common-period changes in covariance summaries are the primary influence outputs.
+Omit each biological unit in turn and compare the reduced chronology with the
+full chronology. Because the two chronologies share \code{N - 1} units, correlation
+is descriptive; direct chronology differences and common-period changes in
+covariance summaries are the primary influence outputs.
 }

@@ -20,7 +20,8 @@ split_half_stability(
 \arguments{
 \item{data}{Long-form data containing one value per year and biological unit.}
 
-\item{partitions}{A data frame with \code{replicate_id}, \code{group} (\code{A} or \code{B}), and \code{unit_id}.}
+\item{partitions}{A data frame with \code{replicate_id}, \code{group} (\code{A} or \code{B}), and
+\code{unit_id}.}
 
 \item{year_col}{Name of the calendar-year column.}
 
@@ -30,17 +31,22 @@ split_half_stability(
 
 \item{chronology_method}{Arithmetic \code{"mean"} or \code{"median"} chronology.}
 
-\item{min_depth_fraction}{Minimum fraction of each group's units required in a year. The default 1 uses a complete-period comparison.}
+\item{min_depth_fraction}{Minimum fraction of each group's units required in a
+year. The default 1 uses a complete-period comparison.}
 
 \item{min_overlap}{Minimum number of common chronology years.}
 
-\item{require_exhaustive}{Require groups A and B together to contain every unit in \code{data} exactly once.}
+\item{require_exhaustive}{Require groups A and B together to contain every unit
+in \code{data} exactly once.}
 
-\item{require_balanced}{Require group sizes to differ by at most one unit, as expected for a literal split half.}
+\item{require_balanced}{Require group sizes to differ by at most one unit, as
+expected for a literal split half.}
 }
 \value{
-A data frame containing one auditable result row per partition. Pearson correlation and squared correlation are reported with overlap and depth data.
+A data frame containing one auditable result row per partition. Pearson
+correlation and squared correlation are reported with overlap and depth data.
 }
 \description{
-Compare user-supplied, non-overlapping A/B biological-unit partitions. By default every replicate must assign the complete unit pool exactly once.
+Compare user-supplied, non-overlapping A/B biological-unit partitions. By
+default every replicate must assign the complete unit pool exactly once.
 }

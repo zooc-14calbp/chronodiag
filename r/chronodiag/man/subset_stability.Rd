@@ -18,7 +18,8 @@ subset_stability(
 \arguments{
 \item{data}{Long-form data containing one value per year and biological unit.}
 
-\item{subsets}{A data frame with \code{replicate_id} and \code{unit_id}, or a named list whose elements contain unit IDs.}
+\item{subsets}{A data frame with \code{replicate_id} and \code{unit_id}, or a named list
+whose elements contain unit IDs.}
 
 \item{year_col}{Name of the calendar-year column.}
 
@@ -28,13 +29,18 @@ subset_stability(
 
 \item{chronology_method}{Arithmetic \code{"mean"} or \code{"median"} chronology.}
 
-\item{min_depth_fraction}{Minimum fraction of each group's units required in a year. The default 1 uses a complete-period comparison.}
+\item{min_depth_fraction}{Minimum fraction of each group's units required in a
+year. The default 1 uses a complete-period comparison.}
 
 \item{min_overlap}{Minimum number of common chronology years.}
 }
 \value{
-A data frame containing one auditable result row per replicate. Pearson correlation and squared correlation are reported together with overlap and depth information.
+A data frame containing one auditable result row per replicate. Pearson
+correlation and squared correlation are reported together with overlap and
+depth information.
 }
 \description{
-Compare user-supplied biological-unit subsets with the chronology formed from the complete unit pool. Random subsets are intentionally generated outside this function so that identical compositions can be audited in R and Python.
+Compare user-supplied biological-unit subsets with the chronology formed from
+the complete unit pool. Random subsets are intentionally generated outside
+this function so that identical compositions can be audited in R and Python.
 }
