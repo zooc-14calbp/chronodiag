@@ -84,10 +84,17 @@
 
   chronology <- rep(NA_real_, nrow(selected))
   if (method == "mean") {
-    weighted_values <- sweep(selected, 2L, weights, `*`)
-    numerator <- rowSums(weighted_values, na.rm = TRUE)
-    valid_depth <- weighted_depth > 0L
-    chronology[valid_depth] <- numerator[valid_depth] / weighted_depth[valid_depth]
+    if (length(unique(weights)) == 1L) {
+      # Use the same arithmetic path as the unweighted full chronology. This
+      # makes the identity bootstrap bitwise identical rather than allowing a
+      # summation-order roundoff to select an arbitrary maximum-difference year.
+      chronology <- rowMeans(selected, na.rm = TRUE)
+    } else {
+      weighted_values <- sweep(selected, 2L, weights, `*`)
+      numerator <- rowSums(weighted_values, na.rm = TRUE)
+      valid_depth <- weighted_depth > 0L
+      chronology[valid_depth] <- numerator[valid_depth] / weighted_depth[valid_depth]
+    }
   } else {
     for (i in seq_len(nrow(selected))) {
       keep <- !is.na(selected[i, ])
@@ -97,6 +104,7 @@
       }
     }
   }
+  chronology[weighted_depth == 0L] <- NA_real_
   chronology[weighted_depth < required_depth] <- NA_real_
   list(chronology = chronology, depth = weighted_depth)
 }
