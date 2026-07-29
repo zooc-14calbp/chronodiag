@@ -1,7 +1,6 @@
 name: cross-language-ci
 
 on:
-  push:
   pull_request:
 
 permissions:
