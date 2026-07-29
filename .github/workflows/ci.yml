@@ -49,6 +49,8 @@ jobs:
         run: Rscript r/parity_tests/test_shared_io.R
       - name: Run shared composition parity fixtures
         run: Rscript r/parity_tests/test_shared_composition.R
+      - name: Run shared bootstrap and LOTO parity fixtures
+        run: Rscript r/parity_tests/test_shared_influence.R
       - uses: r-lib/actions/check-r-package@v2
         with:
           working-directory: r/chronodiag
