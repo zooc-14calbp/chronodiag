@@ -191,7 +191,7 @@ rwl = read_chronodiag("measurements.rwl")
 ## Validation status
 
 - The baseline Python suite passed on Python 3.10, 3.12, and 3.13 in GitHub Actions.
-- The integrated suite contains 36 baseline, composition, bootstrap, and LOTO
+- The integrated suite contains 39 baseline, composition, bootstrap, and LOTO
   tests.
 - A separate integration audit successfully read six full ITRDB files: ca533,
   germ011, germ012, germ6, fran003, and brit042.
