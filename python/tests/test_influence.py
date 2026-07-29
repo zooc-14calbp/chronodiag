@@ -93,6 +93,31 @@ def test_bootstrap_size_contract_is_explicit() -> None:
     assert result.loc[0, "nominal_draw_count"] == 2
 
 
+def test_kish_count_is_bounded_by_unique_and_nominal_counts() -> None:
+    multiplicities = pd.read_csv(FIXTURES / "bootstrap_multiplicities_v01.csv")
+    result = tree_bootstrap(_data(), multiplicities)
+    assert (result["kish_effective_unit_count"] >= 1).all()
+    assert (
+        result["kish_effective_unit_count"] <= result["unique_unit_count"]
+    ).all()
+    assert (result["unique_unit_count"] <= result["nominal_draw_count"]).all()
+
+
+def test_weighted_median_expands_literal_bootstrap_draws() -> None:
+    data = pd.DataFrame(
+        {
+            "year": [2000, 2001, 2002] * 3,
+            "tree_id": ["T01"] * 3 + ["T02"] * 3 + ["T03"] * 3,
+            "value": [0.0, 1.0, 2.0, 10.0, 11.0, 12.0, 20.0, 21.0, 22.0],
+        }
+    )
+    draws = {"M": ["T01", "T01", "T02"]}
+    result = tree_bootstrap(data, draws, chronology_method="median").iloc[0]
+    assert result["mean_difference"] == pytest.approx(-10.0)
+    assert result["rms_difference"] == pytest.approx(10.0)
+    assert result["correlation"] == pytest.approx(1.0)
+
+
 def test_leave_one_tree_out_matches_frozen_fixture() -> None:
     actual = leave_one_tree_out(_data())
     _assert_expected(actual, "expected_leave_one_tree_out_v01.csv")
@@ -106,6 +131,27 @@ def test_loto_identifies_influential_fixture_unit_by_direct_difference() -> None
     ]
     assert result.loc["T06", "shared_unit_count"] == 5
     assert result.loc["T06", "correlation"] > 0.99
+
+
+def test_loto_direct_difference_matches_complete_mean_identity() -> None:
+    data = _data()
+    matrix = data.pivot(index="year", columns="tree_id", values="value").dropna()
+    full = matrix.mean(axis=1)
+    reduced = matrix.drop(columns="T06").mean(axis=1)
+    identity_difference = (reduced - matrix["T06"]) / matrix.shape[1]
+    observed_difference = reduced - full
+    assert np.allclose(
+        observed_difference.to_numpy(),
+        identity_difference.to_numpy(),
+        atol=1e-14,
+        rtol=0.0,
+    )
+
+    result = leave_one_tree_out(data).set_index("omitted_unit_id").loc["T06"]
+    assert result["mean_difference"] == pytest.approx(observed_difference.mean())
+    assert result["rms_difference"] == pytest.approx(
+        np.sqrt(np.mean(np.square(observed_difference)))
+    )
 
 
 def test_loto_structure_deltas_use_one_common_complete_period() -> None:
