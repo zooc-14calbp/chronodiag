@@ -144,7 +144,11 @@ test_that("LOTO direct difference follows the complete mean identity", {
   reduced <- rowMeans(matrix_data[, setdiff(colnames(matrix_data), t06_column), drop = FALSE])
   identity_difference <- (reduced - matrix_data[, t06_column]) / ncol(matrix_data)
   observed_difference <- reduced - full
-  expect_equal(observed_difference, as.numeric(identity_difference), tolerance = 1e-14)
+  expect_equal(
+    as.numeric(observed_difference),
+    as.numeric(identity_difference),
+    tolerance = 1e-14
+  )
 
   out <- leave_one_tree_out(data)
   row <- out[out$omitted_unit_id == "T06", ]
