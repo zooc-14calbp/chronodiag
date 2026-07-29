@@ -26,25 +26,51 @@ expected_loto <- utils::read.csv(
 )
 
 compare_frames <- function(actual, expected, label) {
-  stopifnot(identical(names(actual), names(expected)))
-  stopifnot(nrow(actual) == nrow(expected))
+  if (!identical(names(actual), names(expected))) {
+    stop(label, ": column names differ")
+  }
+  if (nrow(actual) != nrow(expected)) {
+    stop(label, ": row counts differ")
+  }
   logical_columns <- names(expected)[vapply(expected, is.logical, logical(1))]
   numeric_columns <- names(expected)[vapply(expected, is.numeric, logical(1))]
   text_columns <- setdiff(names(expected), c(logical_columns, numeric_columns))
 
   for (column in numeric_columns) {
-    stopifnot(isTRUE(all.equal(
-      as.numeric(actual[[column]]),
-      as.numeric(expected[[column]]),
+    observed <- as.numeric(actual[[column]])
+    reference <- as.numeric(expected[[column]])
+    comparison <- all.equal(
+      observed,
+      reference,
       tolerance = 1e-12,
       check.attributes = FALSE
-    )))
+    )
+    if (!isTRUE(comparison)) {
+      stop(
+        label, ": numeric mismatch in ", column,
+        "\nactual:   ", paste(format(observed, digits = 17), collapse = ", "),
+        "\nexpected: ", paste(format(reference, digits = 17), collapse = ", "),
+        "\nall.equal: ", paste(comparison, collapse = "; ")
+      )
+    }
   }
   for (column in logical_columns) {
-    stopifnot(identical(as.logical(actual[[column]]), as.logical(expected[[column]])))
+    observed <- as.logical(actual[[column]])
+    reference <- as.logical(expected[[column]])
+    if (!identical(observed, reference)) {
+      stop(label, ": logical mismatch in ", column)
+    }
   }
   for (column in text_columns) {
-    stopifnot(identical(as.character(actual[[column]]), as.character(expected[[column]])))
+    observed <- as.character(actual[[column]])
+    reference <- as.character(expected[[column]])
+    if (!identical(observed, reference)) {
+      stop(
+        label, ": text mismatch in ", column,
+        "\nactual:   ", paste(observed, collapse = ", "),
+        "\nexpected: ", paste(reference, collapse = ", ")
+      )
+    }
   }
   cat(label, "passed.\n")
 }
