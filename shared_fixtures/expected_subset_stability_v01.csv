@@ -1,0 +1,8 @@
+diagnostic,replicate_id,chronology_method,correlation_method,min_depth_fraction,min_overlap,full_pool_size,group_a_size,group_b_size,shared_unit_count,comparison_exhaustive,correlation,squared_correlation,n_years,start_year,end_year,mean_depth_a,min_depth_a,mean_depth_b,min_depth_b,group_a_ids,group_b_ids,status
+subset_to_full,S02_01,mean,pearson,1,10,8,2,8,2,TRUE,0.99839830694753,0.996799179315694,21,2000,2023,2,2,8,8,T01|T02,T01|T02|T03|T04|T05|T06|T07|T08,ok
+subset_to_full,S02_02,mean,pearson,1,10,8,2,8,2,TRUE,0.998477350856744,0.996957020173901,21,2000,2023,2,2,8,8,T03|T04,T01|T02|T03|T04|T05|T06|T07|T08,ok
+subset_to_full,S02_03,mean,pearson,1,10,8,2,8,2,TRUE,0.998605168479696,0.997212282514361,21,2000,2023,2,2,8,8,T07|T08,T01|T02|T03|T04|T05|T06|T07|T08,ok
+subset_to_full,S04_01,mean,pearson,1,10,8,4,8,4,TRUE,0.990355519708898,0.980804055417882,21,2000,2023,4,4,8,8,T01|T03|T05|T07,T01|T02|T03|T04|T05|T06|T07|T08,ok
+subset_to_full,S04_02,mean,pearson,1,10,8,4,8,4,TRUE,0.985142983191182,0.970506697330821,21,2000,2023,4,4,8,8,T02|T04|T06|T08,T01|T02|T03|T04|T05|T06|T07|T08,ok
+subset_to_full,S06_01,mean,pearson,1,10,8,6,8,6,TRUE,0.999847367523069,0.999694758342812,21,2000,2023,6,6,8,8,T01|T02|T03|T04|T05|T06,T01|T02|T03|T04|T05|T06|T07|T08,ok
+subset_to_full,S06_02,mean,pearson,1,10,8,6,8,6,TRUE,0.999811672317369,0.999623380102054,21,2000,2023,6,6,8,8,T03|T04|T05|T06|T07|T08,T01|T02|T03|T04|T05|T06|T07|T08,ok
