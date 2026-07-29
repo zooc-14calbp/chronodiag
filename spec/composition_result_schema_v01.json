@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "chronodiag composition realization table row v01",
+  "type": "object",
+  "required": [
+    "diagnostic",
+    "replicate_id",
+    "chronology_method",
+    "correlation_method",
+    "min_depth_fraction",
+    "min_overlap",
+    "full_pool_size",
+    "group_a_size",
+    "group_b_size",
+    "shared_unit_count",
+    "comparison_exhaustive",
+    "correlation",
+    "squared_correlation",
+    "n_years",
+    "start_year",
+    "end_year",
+    "mean_depth_a",
+    "min_depth_a",
+    "mean_depth_b",
+    "min_depth_b",
+    "group_a_ids",
+    "group_b_ids",
+    "status"
+  ],
+  "properties": {
+    "diagnostic": {
+      "enum": ["subset_to_full", "disjoint_split_half"]
+    },
+    "replicate_id": {"type": "string", "minLength": 1},
+    "chronology_method": {"enum": ["mean", "median"]},
+    "correlation_method": {"const": "pearson"},
+    "min_depth_fraction": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1
+    },
+    "min_overlap": {"type": "integer", "minimum": 1},
+    "full_pool_size": {"type": "integer", "minimum": 1},
+    "group_a_size": {"type": "integer", "minimum": 1},
+    "group_b_size": {"type": "integer", "minimum": 1},
+    "shared_unit_count": {"type": "integer", "minimum": 0},
+    "comparison_exhaustive": {"type": "boolean"},
+    "correlation": {
+      "type": ["number", "null"],
+      "minimum": -1,
+      "maximum": 1
+    },
+    "squared_correlation": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "n_years": {"type": "integer", "minimum": 0},
+    "start_year": {"type": ["integer", "null"]},
+    "end_year": {"type": ["integer", "null"]},
+    "mean_depth_a": {"type": ["number", "null"], "minimum": 0},
+    "min_depth_a": {"type": "integer", "minimum": 0},
+    "mean_depth_b": {"type": ["number", "null"], "minimum": 0},
+    "min_depth_b": {"type": "integer", "minimum": 0},
+    "group_a_ids": {"type": "string", "minLength": 1},
+    "group_b_ids": {"type": "string", "minLength": 1},
+    "status": {
+      "enum": ["ok", "insufficient_overlap", "constant_chronology"]
+    }
+  },
+  "additionalProperties": false
+}

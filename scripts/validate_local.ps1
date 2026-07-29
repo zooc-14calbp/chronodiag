@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param(
     [string]$ProjectRoot,
     [string]$PythonExe,
@@ -83,6 +83,9 @@ if ($SkipRCheck) {
         try {
             & $Rscript.Source "r/parity_tests/test_shared_metrics.R"
             if ($LASTEXITCODE -ne 0) { throw "R shared-metric parity test failed." }
+
+            & $Rscript.Source "r/parity_tests/test_shared_composition.R"
+            if ($LASTEXITCODE -ne 0) { throw "R shared-composition parity test failed." }
 
             & $Rscript.Source -e "quit(status=if(requireNamespace('dplR', quietly=TRUE)) 0 else 2)"
             if ($LASTEXITCODE -eq 0) {
