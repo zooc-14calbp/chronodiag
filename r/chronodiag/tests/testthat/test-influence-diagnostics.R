@@ -93,6 +93,32 @@ test_that("bootstrap multiplicity and size contracts are explicit", {
   expect_equal(out$nominal_draw_count, 2)
 })
 
+test_that("Kish count is bounded by unique and nominal counts", {
+  out <- tree_bootstrap(
+    .make_influence_test_data(), .make_bootstrap_multiplicities()
+  )
+  expect_true(all(out$kish_effective_unit_count >= 1))
+  expect_true(all(out$kish_effective_unit_count <= out$unique_unit_count))
+  expect_true(all(out$unique_unit_count <= out$nominal_draw_count))
+})
+
+test_that("weighted median expands literal bootstrap draws", {
+  data <- data.frame(
+    year = rep(2000:2002, 3),
+    tree_id = rep(c("T01", "T02", "T03"), each = 3),
+    value = c(0, 1, 2, 10, 11, 12, 20, 21, 22),
+    stringsAsFactors = FALSE
+  )
+  out <- tree_bootstrap(
+    data,
+    list(M = c("T01", "T01", "T02")),
+    chronology_method = "median"
+  )
+  expect_equal(out$mean_difference, -10, tolerance = 1e-14)
+  expect_equal(out$rms_difference, 10, tolerance = 1e-14)
+  expect_equal(out$correlation, 1, tolerance = 1e-14)
+})
+
 test_that("LOTO emphasizes direct differences despite shared-data correlation", {
   out <- leave_one_tree_out(.make_influence_test_data())
   influential <- out[which.max(out$rms_difference), ]
@@ -100,6 +126,30 @@ test_that("LOTO emphasizes direct differences despite shared-data correlation", 
   expect_gt(influential$correlation, 0.99)
   expect_equal(influential$shared_unit_count, 5)
   expect_gt(influential$standardized_rms_difference, 0)
+})
+
+test_that("LOTO direct difference follows the complete mean identity", {
+  data <- .make_influence_test_data()
+  wide <- reshape(
+    data,
+    idvar = "year",
+    timevar = "tree_id",
+    direction = "wide"
+  )
+  value_columns <- grep("^value\\.", names(wide), value = TRUE)
+  complete <- stats::complete.cases(wide[value_columns])
+  matrix_data <- as.matrix(wide[complete, value_columns, drop = FALSE])
+  full <- rowMeans(matrix_data)
+  t06_column <- grep("T06$", colnames(matrix_data), value = TRUE)
+  reduced <- rowMeans(matrix_data[, setdiff(colnames(matrix_data), t06_column), drop = FALSE])
+  identity_difference <- (reduced - matrix_data[, t06_column]) / ncol(matrix_data)
+  observed_difference <- reduced - full
+  expect_equal(observed_difference, as.numeric(identity_difference), tolerance = 1e-14)
+
+  out <- leave_one_tree_out(data)
+  row <- out[out$omitted_unit_id == "T06", ]
+  expect_equal(row$mean_difference, mean(observed_difference), tolerance = 1e-12)
+  expect_equal(row$rms_difference, sqrt(mean(observed_difference^2)), tolerance = 1e-12)
 })
 
 test_that("LOTO structure deltas use one complete period", {
