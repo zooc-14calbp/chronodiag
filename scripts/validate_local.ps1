@@ -50,7 +50,7 @@ Write-Host ""
 $OldPythonPath = $env:PYTHONPATH
 $env:PYTHONPATH = Join-Path $RepoRoot "python\src"
 try {
-    Write-Host "[1/3] Python dependency, unit, and parity tests"
+    Write-Host "[1/4] Python dependency, unit, and parity tests"
 
     & $PythonExe -c "import importlib.util, sys; required=('numpy','pandas','pytest'); missing=[m for m in required if importlib.util.find_spec(m) is None]; print('Missing Python modules: ' + ', '.join(missing)) if missing else None; sys.exit(2 if missing else 0)"
     if ($LASTEXITCODE -ne 0) {
@@ -61,7 +61,12 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "Python tests failed." }
 
     Write-Host ""
-    Write-Host "[2/3] Hash and full ITRDB audit validation"
+    Write-Host "[2/4] Reproduce frozen same-EPS Stage A analysis"
+    & $PythonExe (Join-Path $RepoRoot "scripts\validate_same_eps_stage_a_v01.py")
+    if ($LASTEXITCODE -ne 0) { throw "same-EPS Stage A reproduction failed." }
+
+    Write-Host ""
+    Write-Host "[3/4] Hash and full ITRDB audit validation"
     & $PythonExe (Join-Path $RepoRoot "scripts\validate_pre_github.py") `
         --project-root $ProjectRoot
     if ($LASTEXITCODE -ne 0) { throw "ITRDB validation failed." }
@@ -71,7 +76,7 @@ finally {
 }
 
 Write-Host ""
-Write-Host "[3/3] R validation"
+Write-Host "[4/4] R validation"
 if ($SkipRCheck) {
     Write-Warning "R validation was skipped by request."
 } else {
@@ -89,6 +94,9 @@ if ($SkipRCheck) {
 
             & $Rscript.Source "r/parity_tests/test_shared_influence.R"
             if ($LASTEXITCODE -ne 0) { throw "R shared-influence parity test failed." }
+
+            & $Rscript.Source "r/parity_tests/test_same_eps_stage_a.R"
+            if ($LASTEXITCODE -ne 0) { throw "R same-EPS Stage A parity test failed." }
 
             & $Rscript.Source -e "quit(status=if(requireNamespace('dplR', quietly=TRUE)) 0 else 2)"
             if ($LASTEXITCODE -eq 0) {

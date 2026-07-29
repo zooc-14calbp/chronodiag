@@ -27,6 +27,9 @@ jobs:
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e "python[test]"
       - run: python -m pytest python/tests -q
+      - name: Reproduce frozen same-EPS Stage A analysis
+        if: matrix.python-version == '3.12'
+        run: python scripts/validate_same_eps_stage_a_v01.py
 
   r:
     name: R package and parity checks
@@ -51,6 +54,8 @@ jobs:
         run: Rscript r/parity_tests/test_shared_composition.R
       - name: Run shared bootstrap and LOTO parity fixtures
         run: Rscript r/parity_tests/test_shared_influence.R
+      - name: Run same-EPS Stage A parity checks
+        run: Rscript r/parity_tests/test_same_eps_stage_a.R
       - uses: r-lib/actions/check-r-package@v2
         with:
           working-directory: r/chronodiag

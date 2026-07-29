@@ -1,0 +1,91 @@
+{
+  "analysis": "same_eps_stage_a",
+  "bootstrap_replicates": 1000,
+  "bootstrap_rng": "numpy.random.default_rng (PCG64)",
+  "bootstrap_seed": 20260730,
+  "chronology_method": "unweighted arithmetic mean",
+  "experiment_type": "deterministic controlled covariance experiment",
+  "extreme_unit_tie_policy": "all units within SUMMARY_TIE_TOLERANCE of the extremum; singular representative is the lexicographically first tied ID",
+  "extreme_unit_tie_tolerance": 1e-12,
+  "input_matrix_files": {
+    "exchangeable": {
+      "path": "shared_fixtures/exchangeable_correlation.csv",
+      "sha256_bytes": "8008cc1012af86ceace41cd1ecc37fe5b208d1ad97730e49ce9de70509dfa6e6",
+      "sha256_canonical_numeric": "89de1573ac71aa0d6feac879b6a416c7c122f45ec37e39defe50e4e4025bf821"
+    },
+    "influential_trees": {
+      "path": "shared_fixtures/influential_trees_correlation.csv",
+      "sha256_bytes": "16d492e8ba2cc043257e256627853eaeae3036a5489bdfc63b038698581514f4",
+      "sha256_canonical_numeric": "ae9af0e03e342af75d30b6e8166277451538fd2367d7cc0c5de919fdd1623cb0"
+    },
+    "two_clusters": {
+      "path": "shared_fixtures/two_clusters_correlation.csv",
+      "sha256_bytes": "2ea18a4a7cd5e0a59dab9600cf375c0c231d9bb7d00ed126d196209eccdbc51e",
+      "sha256_canonical_numeric": "92f5289f1ea71df5f15266c87fb345a499f2836cdd02d8f1eaed349ca77d2965"
+    },
+    "unequal_loadings": {
+      "path": "shared_fixtures/unequal_loadings_correlation.csv",
+      "sha256_bytes": "4109033d52914b50cd6920ccb8d1ef7c5b872308e33986b175496669fe3cd9aa",
+      "sha256_canonical_numeric": "14c8f4b22146659a3a2a8b637b4fad6f872699e06a150e932de3a8b09d062316"
+    }
+  },
+  "n_trees": 18,
+  "n_years": 100,
+  "output_files": {
+    "bootstrap_driver": {
+      "path": "analysis/same_eps_stage_a_v01/bootstrap_driver_summary_v01.csv",
+      "sha256": "ce7dfd110cbc68423fe85d04aca2ef8de70baf8139dd7e8bb7188a83795179c6"
+    },
+    "bootstrap_multiplicities": {
+      "path": "analysis/same_eps_stage_a_v01/bootstrap_multiplicities_v01.csv.gz",
+      "sha256": "e5de4aba6e8d639c7492614def7fd3d7f76292a5ee151b0716964e703dc643a5"
+    },
+    "bootstrap_raw": {
+      "path": "analysis/same_eps_stage_a_v01/bootstrap_results_v01.csv.gz",
+      "sha256": "d5bddae3eab247d061362aa920b265d436f1b1533025d7129d4665246f6db5d6"
+    },
+    "bootstrap_summary": {
+      "path": "analysis/same_eps_stage_a_v01/bootstrap_summary_v01.csv",
+      "sha256": "27dccae2470712d07cde7ace694ee532a273d0a3e1ae92a3d8187bb09b378a4e"
+    },
+    "exact_long_data": {
+      "path": "analysis/same_eps_stage_a_v01/exact_same_eps_long_v01.csv.gz",
+      "sha256": "ec6326b13672bb7034b68db697d1c11e6a776064eb6b33756f31f42fda1e48d4"
+    },
+    "key_results": {
+      "path": "analysis/same_eps_stage_a_v01/key_results_v01.csv",
+      "sha256": "080b959466f9f59a832e28d5996e0b4a55279da46f3938975893cd2bfd7db4dc"
+    },
+    "loto_raw": {
+      "path": "analysis/same_eps_stage_a_v01/loto_results_v01.csv",
+      "sha256": "94ecb0e7f9acb9ac25384f979aa7fd35fa394172c8be39ff1a505b771135326d"
+    },
+    "loto_summary": {
+      "path": "analysis/same_eps_stage_a_v01/loto_summary_v01.csv",
+      "sha256": "158c9176c5ec072267714452f432bde6caad1916a02e60d6bb500414892864eb"
+    },
+    "scenario_summary": {
+      "path": "analysis/same_eps_stage_a_v01/scenario_summary_v01.csv",
+      "sha256": "8c37580b48fef3601811eb9a38ceb4ec6593e92a1d8eccec0cdd9dfeef6e2d48"
+    },
+    "split_half_summary": {
+      "path": "analysis/same_eps_stage_a_v01/split_half_summary_v01.csv",
+      "sha256": "e6e609fcf9376b386aa75e3ddae7a4367a56c37ebad8b8093d094c3a0a8d7eaf"
+    },
+    "subset_summary": {
+      "path": "analysis/same_eps_stage_a_v01/subset_summary_v01.csv",
+      "sha256": "678b1c74ac4b140d21da8bf2170a56a603ddf8600355c765be40ff28d612b54d"
+    }
+  },
+  "software": {
+    "numpy": "2.5.1",
+    "pandas": "3.0.5",
+    "python": "3.14.6"
+  },
+  "split_half_design": "exhaustive unique balanced partitions; T01 fixed in group A",
+  "split_half_partition_count": 24310,
+  "start_year": 1900,
+  "subset_composition_count_total": 262142,
+  "subset_design": "exhaustive for every subset size 1..N-1",
+  "version": "v01"
+}

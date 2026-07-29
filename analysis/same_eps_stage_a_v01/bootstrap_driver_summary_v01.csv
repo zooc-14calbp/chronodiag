@@ -1,0 +1,5 @@
+scenario,composition_axis,composition_axis_label,pearson_with_standardized_rms_difference,pearson_with_variance_ratio
+exchangeable,kish_effective_unit_count,Kish effective unit count,-0.994155078054661,-0.974047175276952
+two_clusters,absolute_cluster_imbalance_fraction,absolute cluster draw imbalance,0.851281986943142,0.846291598845249
+unequal_loadings,mean_loading_drawn,mean loading of bootstrap draws,-0.0816344890864018,0.8295300646678
+influential_trees,high_loading_draw_count,number of high-loading draws,-0.0868408811725311,0.934795486507823
