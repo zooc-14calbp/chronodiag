@@ -33,6 +33,9 @@ jobs:
       - name: Reproduce frozen empirical ITRDB Stage B analysis
         if: matrix.python-version == '3.12'
         run: python scripts/validate_itrdb_empirical_stage_b_v01.py
+      - name: Reproduce frozen Yoshino empirical Stage C analysis
+        if: matrix.python-version == '3.12'
+        run: python scripts/validate_yoshino_empirical_stage_c_v01.py
 
   r:
     name: R package and parity checks

@@ -1,0 +1,4 @@
+"dataset","detrending_method","method_role","status","failure_message","analysis_start","analysis_end","analysis_years","n_trees","n_series","input_level","n_zero_rwi","n_missing_tree_values","minimum_tree_sd","maximum_tree_sd","warning_count"
+"yoshino","AgeDepSpline","primary","ok","",1850,2004,155,50,50,"specimen_mean",0,0,0.210548561209765,0.472828883387787,0
+"yoshino","ModNegExp","sensitivity","ok","",1850,2004,155,50,50,"specimen_mean",0,0,0.224510609329525,0.510941569333232,0
+"yoshino","Spline30","sensitivity","ok","",1850,2004,155,50,50,"specimen_mean",0,0,0.147867443323466,0.34537755388896,0

@@ -1,0 +1,2 @@
+dataset,raw_filename,source_project_path,rwl_format,tucson_header,tucson_long,preserve_zero,input_level,n_raw_series_expected,n_trees_expected,n_series_expected,analysis_start,analysis_end,analysis_years,minimum_years,minimum_years_per_tree_ratio,cohort_rule,primary_detrending_method,sensitivity_detrending_methods
+yoshino,nr_all.rwl,D:\Dropbox\papers_2026\01c_Dendro_2026_yoshino\floatsR0\data_raw\rwl\nr_all.rwl,tucson,false,false,true,specimen_mean,60,50,50,1850,2004,155,50,3.0,"maximize N, then T, then earliest start; require T>=50 and T>=3N",AgeDepSpline,ModNegExp|Spline30

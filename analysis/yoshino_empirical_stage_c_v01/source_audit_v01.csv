@@ -1,0 +1,2 @@
+dataset,raw_path,raw_sha256,raw_size_bytes,n_specimen_mean_series,first_year,last_year,n_observations_nonmissing,n_zero_width,input_level,status
+yoshino,D:/Dropbox/papers_2026/03f_eps/software/chronodiag/data/yoshino/raw/nr_all.rwl,f984629a694fe26801e92eccfe30b73828f7023736f2371f5c3d1dbfa5da3cb7,93718,60,1636,2019,12524,0,specimen_mean,ok

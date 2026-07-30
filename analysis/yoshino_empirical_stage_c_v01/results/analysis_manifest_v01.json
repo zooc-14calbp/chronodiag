@@ -1,0 +1,81 @@
+{
+  "analysis": "yoshino_empirical_stage_c",
+  "chronology_method": "arithmetic mean",
+  "input_files": {
+    "contract": {
+      "path": "data/yoshino/yoshino_dataset_contract_v01.csv",
+      "sha256": "68aa048fe9f55a4ff9088a74c87dcebe503f25731f925cb87d56b0b9ce548c56"
+    },
+    "keymap": {
+      "path": "data/yoshino/yoshino_keymap_v01.csv",
+      "sha256": "70b62683f6db2361c621a2b2195e853519f931e55c743092acdf171b6f0f0326"
+    },
+    "membership_manifest": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/memberships/membership_manifest_v01.json",
+      "sha256": "d6ae667f15feff3915f6346c159cd5bed973129f5412e846f24bc31eda02b15b"
+    },
+    "tree_level": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/preprocessed/tree_level_all_methods_v01.csv",
+      "sha256": "9615ac5a64c040f6e74d852b173452998a7fad66fcabf32336fb0053e778e227"
+    }
+  },
+  "input_level": "specimen_mean",
+  "min_depth_fraction": 1.0,
+  "outputs": {
+    "bootstrap_summary_v01.csv": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/bootstrap_summary_v01.csv",
+      "sha256": "a7c0d30e00fd781f89168d0b472db1d86e56168834194709995b64652c5389ce"
+    },
+    "detrending_sensitivity_summary_v01.csv": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/detrending_sensitivity_summary_v01.csv",
+      "sha256": "1e1e49c533500983e5d29c73fdd9a421ea55ef1bdba8036a9b3d4a6192f64583"
+    },
+    "loto_summary_v01.csv": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/loto_summary_v01.csv",
+      "sha256": "5416d8e7bbcd430d3f5f6f743c4465dd0d984bac743ce52eb87eb1c2c576de81"
+    },
+    "primary_cohort_source_groups_v01.csv": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/primary_cohort_source_groups_v01.csv",
+      "sha256": "e4205e6726974db9ca8e297cabb1463ced25f95db2340ecd6110b7ac11dcf081"
+    },
+    "split_half_summary_v01.csv": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/split_half_summary_v01.csv",
+      "sha256": "9d27c385c597687d150f8d27bc13e3364c8bb002c46f85f2220ddccbb6362573"
+    },
+    "structure_summary_v01.csv": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/structure_summary_v01.csv",
+      "sha256": "dedf23757586d5ab3ebd27fdcfaec295b2049ad3079c57c8806945a3488d3651"
+    },
+    "subset_summary_v01.csv": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/subset_summary_v01.csv",
+      "sha256": "2b4cecef2394aa428315de4d31853bec8e1ef512e13b029c871eed2f18726da1"
+    },
+    "yoshino_bootstrap_results_v01.csv.gz": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/yoshino_bootstrap_results_v01.csv.gz",
+      "sha256": "7f68e13cf31817080f8f2368e28c809c3c8068a25aa0f31fde16f05765014e8e"
+    },
+    "yoshino_key_results_v01.csv": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/yoshino_key_results_v01.csv",
+      "sha256": "01d4ea6f9618fa712237e8580120e53ccd6104982ce80530a36f249a6bb5b85f"
+    },
+    "yoshino_loto_results_v01.csv.gz": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/yoshino_loto_results_v01.csv.gz",
+      "sha256": "a2d001d5b490e5213dd907b2d77538dcf4420b420b434d51fec68163a1058aab"
+    },
+    "yoshino_split_half_results_v01.csv.gz": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/yoshino_split_half_results_v01.csv.gz",
+      "sha256": "7ad919dbec683a2a3eb8ae3008105e9ffee7c10b393ca28259125bf2d8cb3326"
+    },
+    "yoshino_subset_results_v01.csv.gz": {
+      "path": "analysis/yoshino_empirical_stage_c_v01/results/yoshino_subset_results_v01.csv.gz",
+      "sha256": "7b31bf716067f9feeeba43a4289ccf1604e6621b648478a6a683c13894977f26"
+    }
+  },
+  "primary_detrending_method": "AgeDepSpline",
+  "software": {
+    "numpy": "2.5.1",
+    "pandas": "3.0.5",
+    "python": "3.14.6"
+  },
+  "version": "v01"
+}
