@@ -2,7 +2,8 @@
 param(
     [string]$ProjectRoot,
     [string]$PythonExe,
-    [switch]$SkipRCheck
+    [switch]$SkipRCheck,
+    [switch]$SkipYoshinoStageC
 )
 
 Set-StrictMode -Version Latest
@@ -50,7 +51,7 @@ Write-Host ""
 $OldPythonPath = $env:PYTHONPATH
 $env:PYTHONPATH = Join-Path $RepoRoot "python\src"
 try {
-    Write-Host "[1/5] Python dependency, unit, and parity tests"
+    Write-Host "[1/6] Python dependency, unit, and parity tests"
 
     & $PythonExe -c "import importlib.util, sys; required=('numpy','pandas','pytest'); missing=[m for m in required if importlib.util.find_spec(m) is None]; print('Missing Python modules: ' + ', '.join(missing)) if missing else None; sys.exit(2 if missing else 0)"
     if ($LASTEXITCODE -ne 0) {
@@ -61,12 +62,12 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "Python tests failed." }
 
     Write-Host ""
-    Write-Host "[2/5] Reproduce frozen same-EPS Stage A analysis"
+    Write-Host "[2/6] Reproduce frozen same-EPS Stage A analysis"
     & $PythonExe (Join-Path $RepoRoot "scripts\validate_same_eps_stage_a_v01.py")
     if ($LASTEXITCODE -ne 0) { throw "same-EPS Stage A reproduction failed." }
 
     Write-Host ""
-    Write-Host "[3/5] Reproduce frozen empirical ITRDB Stage B analysis"
+    Write-Host "[3/6] Reproduce frozen empirical ITRDB Stage B analysis"
     $EmpiricalManifest = Join-Path $RepoRoot "analysis\itrdb_empirical_stage_b_v01\results\analysis_manifest_v01.json"
     if (Test-Path -LiteralPath $EmpiricalManifest -PathType Leaf) {
         & $PythonExe (Join-Path $RepoRoot "scripts\validate_itrdb_empirical_stage_b_v01.py") `
@@ -77,7 +78,21 @@ try {
     }
 
     Write-Host ""
-    Write-Host "[4/5] Hash and full ITRDB audit validation"
+    Write-Host "[4/6] Reproduce frozen Yoshino empirical Stage C analysis"
+    $YoshinoManifest = Join-Path $RepoRoot "analysis\yoshino_empirical_stage_c_v01\results\analysis_manifest_v01.json"
+    if ($SkipYoshinoStageC) {
+        Write-Warning "Yoshino Stage C reproduction was skipped because it was already validated by the active workflow."
+    }
+    elseif (Test-Path -LiteralPath $YoshinoManifest -PathType Leaf) {
+        & $PythonExe (Join-Path $RepoRoot "scripts\validate_yoshino_empirical_stage_c_v01.py") `
+            --repo-root $RepoRoot
+        if ($LASTEXITCODE -ne 0) { throw "Yoshino empirical Stage C reproduction failed." }
+    } else {
+        Write-Warning "Frozen Yoshino Stage C outputs are absent; run run_yoshino_empirical_stage_c_v01.ps1."
+    }
+
+    Write-Host ""
+    Write-Host "[5/6] Hash and full ITRDB audit validation"
     & $PythonExe (Join-Path $RepoRoot "scripts\validate_pre_github.py") `
         --project-root $ProjectRoot
     if ($LASTEXITCODE -ne 0) { throw "ITRDB validation failed." }
@@ -87,7 +102,7 @@ finally {
 }
 
 Write-Host ""
-Write-Host "[5/5] R validation"
+Write-Host "[6/6] R validation"
 if ($SkipRCheck) {
     Write-Warning "R validation was skipped by request."
 } else {

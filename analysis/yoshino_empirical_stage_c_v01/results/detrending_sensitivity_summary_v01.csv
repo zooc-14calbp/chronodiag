@@ -1,0 +1,4 @@
+dataset,primary_method,comparison_method,chronology_correlation,rms_difference,standardized_rms_difference,variance_ratio
+yoshino,AgeDepSpline,AgeDepSpline,1.0,0.0,0.0,1.0
+yoshino,AgeDepSpline,ModNegExp,0.959303220815318,0.15706750185526075,0.29058626089426837,1.0645482582996146
+yoshino,AgeDepSpline,Spline30,0.8475660408622294,0.3020874834931456,0.5588837363194622,1.0578712514243047
