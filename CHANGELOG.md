@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Replaced empirical RWL auto-detection with a frozen per-dataset Tucson input
+  contract (`format`, header presence, long-year policy, and zero-ring policy).
+  This prevents a comma in the valid GERM012 header from being misclassified as
+  CSV and keeps archived input interpretation independent of header punctuation.
+- Added the empirical ITRDB Stage B workflow for ca533, GERM012, and FRAN003.
+- Added explicit key maps, DOI/SHA provenance, and a value-blind complete-cohort
+  rule that maximizes tree count and then interval length subject to `T >= 50`
+  and `T >= 3N`.
+- Added R/dplR preprocessing with AgeDepSpline as the primary method and
+  ModNegExp plus a 30-year spline as structural sensitivities.
+- Added equal-weight core-to-tree aggregation, fixed-period tree z-scores,
+  deterministic subset/split/bootstrap memberships, compact empirical summaries,
+  figure prototypes, and end-to-end validation.
+- Kept GERM012 biological-key parsing explicitly labelled as inferred pending
+  confirmation from original source documentation.
+
 - Made Stage A LOTO extremum summaries tolerance-aware: numerically tied units
   are retained as auditable ID sets and counts, while the legacy singular field
   uses the lexicographically first tied ID for cross-platform determinism.
