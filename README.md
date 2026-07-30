@@ -148,16 +148,61 @@ The full contracts are in:
 - `design/composition_diagnostics_spec_v01.md`;
 - `design/influence_diagnostics_spec_v01.md`.
 
+## Controlled same-EPS Stage A experiment
+
+The first manuscript-linked experiment holds `N = 18`, mean interseries
+correlation `0.2394366`, and the **conventional plug-in EPS = 0.85** constant
+across four frozen covariance structures:
+
+- exchangeable;
+- unequal one-factor loadings;
+- a high-loading minority;
+- two equal clusters.
+
+The script exhaustively evaluates every non-empty proper subset and every unique
+balanced split half, then applies one frozen set of 1,000 explicit tree-bootstrap
+draws and all 18 LOTO omissions:
+
+```text
+python scripts/run_same_eps_stage_a_v01.py
+```
+
+The end-to-end validator regenerates the analysis in a temporary directory and
+compares the scientific outputs with the frozen tables:
+
+```text
+python scripts/validate_same_eps_stage_a_v01.py
+```
+
+The main controlled result is that identical `N`, mean correlation, and plug-in
+EPS do not fix covariance architecture or compositional replication. Exchangeable
+nine-versus-nine split correlations are identically 0.739, whereas the
+two-cluster structure ranges from 0.014 to 0.803. Effective dimension declines
+from 9.12 to 6.00 across those two structures.
+
+Frozen tables, hashes, and figure prototypes are in:
+
+```text
+analysis/same_eps_stage_a_v01/
+```
+
+The numerical and interpretive contracts are:
+
+- `design/same_eps_stage_a_spec_v01.md`;
+- `design/same_eps_stage_a_results_v01.md`;
+- `design/same_eps_stage_a_figure_captions_v01.md`.
+
 ## Repository design
 
 - `spec/`: language-neutral scientific, input, and output contracts;
 - `shared_fixtures/`: deterministic numerical and file-format fixtures;
 - `r/chronodiag/`: native R package;
 - `python/`: native Python package;
-- `scripts/`: data-audit and manuscript-reproduction scripts;
+- `scripts/`: data-audit, analysis, and manuscript-figure scripts;
+- `analysis/`: frozen machine-readable manuscript analyses;
 - `data/yoshino/`: public Yoshino worked-example location;
 - `data/itrdb/`: DOI and hash manifest for public ITRDB validation datasets;
-- `design/`: manuscript outline, mathematical specification, and simulation plan;
+- `design/`: manuscript outline, mathematical specifications, and analysis plans;
 - `.github/workflows/`: cross-language CI.
 
 ## Yoshino example
@@ -190,25 +235,25 @@ rwl = read_chronodiag("measurements.rwl")
 
 ## Validation status
 
-- The baseline Python suite passed on Python 3.10, 3.12, and 3.13 in GitHub Actions.
-- The integrated suite contains 39 baseline, composition, bootstrap, and LOTO
-  tests.
-- A separate integration audit successfully read six full ITRDB files: ca533,
+- The integrated Python suite contains 50 baseline, composition, bootstrap, LOTO,
+  and same-EPS Stage A tests and is enforced on Python 3.10, 3.12, and 3.13.
+- A separate integration audit successfully reads six full ITRDB files: ca533,
   germ011, germ012, germ6, fran003, and brit042.
-- ca533 retained all 23,276 observations, including 234 zero-width rings.
-- A Python wheel builds successfully and reproduces the six-file ITRDB audit when installed from the wheel.
-- The baseline R package passed shared metric/I-O/composition parity and
-  `R CMD check` with 0 errors, 0 warnings, and 0 notes.
+- ca533 retains all 23,276 observations, including 234 zero-width rings.
+- A Python wheel builds successfully and reproduces the six-file ITRDB audit when
+  installed from the wheel.
+- The R package passes shared metric, RWL I/O, subset/split-half,
+  bootstrap/LOTO, and same-EPS Stage A parity checks.
+- `R CMD check` is enforced with errors on warnings.
 - Frozen R/Python fixtures cover subset-to-full, disjoint split-half, explicit
-  tree bootstrap, LOTO influence, and exact EPS/SSS linkage cases.
+  tree bootstrap, LOTO influence, exact EPS/SSS linkage, and the controlled
+  same-EPS experiment.
 
 ## Immediate next milestone
 
-1. add auditable random/enumerative partition generators without requiring
-   identical R/Python RNG streams;
-2. apply subset, split-half, bootstrap, and LOTO diagnostics to the same-EPS
-   simulations;
-3. establish empirical preprocessing adapters for ca533, GERM012, FRAN003, and
-   Yoshino;
-4. add sample-depth and temporal-stability diagnostics; and
-5. update the manuscript and Supplement from the frozen mathematical contract.
+1. apply the frozen diagnostic profile to ca533, GERM012, FRAN003, and Yoshino;
+2. distinguish positive-control agreement from structural/compositional
+   discordance in the empirical cases;
+3. add sample-depth and temporal-stability diagnostics;
+4. assemble manuscript figures and integrate the Stage A Results text; and
+5. freeze the empirical and simulation Supplement workflows.

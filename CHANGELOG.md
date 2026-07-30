@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+- Made Stage A LOTO extremum summaries tolerance-aware: numerically tied units
+  are retained as auditable ID sets and counts, while the legacy singular field
+  uses the lexicographically first tied ID for cross-platform determinism.
+- Added a deterministic same-conventional-EPS Stage A covariance experiment for
+  exchangeable, unequal-loading, high-loading-minority, and two-cluster
+  structures with fixed `N = 18`, mean correlation `0.2394366`, and plug-in
+  `EPS = 0.85`.
+- Added exhaustive evaluation of all 262,142 non-empty proper subsets and all
+  24,310 unique balanced split halves, plus 1,000 frozen explicit tree-bootstrap
+  draws and every leave-one-tree-out omission.
+- Added model-relative latent mean reliability for the one-factor scenarios and
+  left the two-cluster case undefined rather than imposing an undocumented
+  one-common-factor target.
+- Added frozen machine-readable Stage A summaries, reproducible gzip raw tables,
+  input/output hashes, R/Python parity checks, an end-to-end regeneration
+  validator, and manuscript-oriented result notes.
+- Added a deterministic figure pipeline and frozen SVG prototypes for the EPS
+  surface, covariance matrices, subset profiles, split-half intervals,
+  bootstrap variance ratios, and LOTO influence.
 - Added explicit `tree_bootstrap()` and `leave_one_tree_out()` implementations in
   native R and Python.
 - Defined standard `N`-out-of-`N` tree bootstrap draws through auditable positive

@@ -1,0 +1,110 @@
+version: 2
+status: stage_A_implemented
+aim: >-
+  Demonstrate that chronologies with the same tree count, mean interseries
+  correlation, conventional plug-in EPS, full-chronology variance, chronology
+  constructor, and
+  complete analysis period can have different covariance architecture and
+  composition stability.
+
+stage_A:
+  fixed_design:
+    n_trees: 18
+    n_years: 100
+    start_year: 1900
+    target_conventional_plugin_eps: 0.85
+    target_mean_interseries_correlation: 0.23943661971830982
+    chronology_method: arithmetic_mean_of_standardized_tree_series
+    missingness: none
+    full_mean_variance: 0.2816901408450704
+  exact_sample:
+    method: centered_orthonormal_temporal_basis_times_cholesky_factor
+    purpose: >-
+      Make each finite sample correlation matrix equal its frozen target matrix,
+      so Stage A differences are not confounded by estimation drift in rbar or
+      the conventional plug-in EPS.
+    common_temporal_basis_across_scenarios: true
+  scenarios:
+    exchangeable:
+      description: equal loading and independent equal-variance residuals
+    unequal_loadings:
+      description: smoothly varying one-factor loadings scaled to the target mean correlation
+    two_clusters:
+      description: >-
+        two groups of 9 trees with within-group correlation 0.50 and
+        between-group correlation chosen to preserve the target mean correlation
+      within_group_correlation: 0.50
+      between_group_correlation: 0.007824726134585196
+    influential_trees:
+      description: >-
+        three high-loading trees and fifteen lower-loading trees, scaled to the
+        target mean correlation; influence is evaluated separately for chronology
+        trajectory and covariance structure
+      high_loading: 0.95
+      n_high_loading: 3
+      low_loading: 0.400207481631523
+  subset_design:
+    method: exhaustive_enumeration
+    subset_sizes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+    total_nonempty_proper_subsets: 262142
+  split_half_design:
+    method: exhaustive_unique_balanced_partitions
+    group_sizes: [9, 9]
+    label_reversal_control: T01_fixed_in_group_A
+    n_partitions: 24310
+  tree_bootstrap:
+    design: N_out_of_N_with_replacement
+    replications: 1000
+    seed: 20260730
+    rng: numpy.random.default_rng_PCG64
+    numerical_primitive: explicit_replicate_unit_multiplicity_table
+  leave_one_tree_out:
+    omissions: all_18_units
+    structural_comparison_period: fixed_full_complete_period
+  primary_outputs:
+    - mean_interseries_correlation
+    - conventional_plugin_eps
+    - one_factor_latent_mean_reliability_when_defined
+    - effective_dimension
+    - leading_and_second_eigenvalue_fraction
+    - off_diagonal_correlation_dispersion
+    - exhaustive_subset_to_full_distribution_by_subset_size
+    - exhaustive_balanced_split_half_distribution
+    - tree_bootstrap_direct_difference_and_variance_ratio_distributions
+    - leave_one_tree_out_trajectory_and_structure_influence
+  success_criteria:
+    - all_scenarios_match_target_N_rbar_and_conventional_plugin_EPS
+    - exchangeable_composition_distributions_collapse_to_theoretical_values
+    - nonexchangeable_scenarios_have_nonzero_composition_spread
+    - two_cluster_split_half_has_a_pronounced_lower_tail
+    - LOTO_trajectory_and_structure_influence_are_not_assumed_identical
+  implementation:
+    script: scripts/run_same_eps_stage_a_v01.py
+    specification: design/same_eps_stage_a_spec_v01.md
+    interpretation: design/same_eps_stage_a_results_v01.md
+    output_directory: analysis/same_eps_stage_a_v01
+    manifest: analysis/same_eps_stage_a_v01/analysis_manifest_v01.json
+
+stage_B:
+  status: planned_after_stage_A_figures
+  scenarios:
+    time_varying_loadings:
+      description: dominant tree group changes between non-overlapping halves of the record
+  outputs:
+    - period_specific_mean_interseries_correlation
+    - period_specific_eps
+    - period_specific_effective_dimension
+    - change_in_tree_influence_rank
+    - change_in_subset_stability
+
+stage_C:
+  status: deferred
+  factorial:
+    n_trees: [5, 10, 18, 30, 60]
+    n_years: [50, 100, 200]
+    ar1: [0.0, 0.3, 0.6]
+    missingness: [none, declining_sample_depth]
+    core_structure: [one_series_per_tree, multiple_cores_per_tree]
+  note: >-
+    Stage C begins only after Stage A figures and empirical preprocessing
+    adapters establish the manuscript's central comparison.
