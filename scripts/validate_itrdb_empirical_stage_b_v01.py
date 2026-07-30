@@ -2,9 +2,7 @@
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -30,6 +28,30 @@ def compare_frames(left_path: Path, right_path: Path, name: str) -> None:
         check_exact=False,
         atol=TOLERANCE,
         rtol=0.0,
+        check_like=False,
+        obj=name,
+    )
+
+
+def compare_membership_frames(left_path: Path, right_path: Path, name: str) -> None:
+    """Compare decoded membership tables rather than compressed byte streams.
+
+    Gzip streams can differ across Python/zlib platforms even when their decoded
+    CSV content is identical.  Scientific reproducibility is therefore defined
+    by the ordered explicit memberships, identifiers, and multiplicities.
+    Reading every column as text also preserves identifiers with leading zeros.
+    """
+    left = pd.read_csv(left_path, dtype=str, keep_default_na=False)
+    right = pd.read_csv(right_path, dtype=str, keep_default_na=False)
+    if list(left.columns) != list(right.columns):
+        raise AssertionError(f"{name}: column mismatch")
+    if len(left) != len(right):
+        raise AssertionError(f"{name}: row-count mismatch")
+    pd.testing.assert_frame_equal(
+        left,
+        right,
+        check_dtype=False,
+        check_exact=True,
         check_like=False,
         obj=name,
     )
@@ -69,9 +91,7 @@ def validate_preprocessed(repo_root: Path) -> None:
             (tree["dataset"] == contract.dataset)
             & (tree["detrending_method"] == "AgeDepSpline")
         ]
-        expected_rows = (
-            int(contract.n_trees_expected) * int(contract.analysis_years)
-        )
+        expected_rows = int(contract.n_trees_expected) * int(contract.analysis_years)
         if len(block) != expected_rows:
             raise AssertionError(
                 f"{contract.dataset}: expected {expected_rows} primary tree rows, "
@@ -140,10 +160,11 @@ def validate_outputs(repo_root: Path) -> None:
             if path.is_file() and path.name != "membership_manifest_v01.json"
         )
         for name in membership_names:
-            left = original_memberships / name
-            right = regenerated_memberships / name
-            if left.read_bytes() != right.read_bytes():
-                raise AssertionError(f"membership file is not reproducible: {name}")
+            compare_membership_frames(
+                original_memberships / name,
+                regenerated_memberships / name,
+                f"ITRDB empirical Stage B membership: {name}",
+            )
 
         result_names = sorted(
             path.name
