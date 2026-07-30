@@ -1,0 +1,4 @@
+dataset,n_trees,subset_min_size,subset_max_size,subset_replicates_total,subset_replicates_min_per_size,subset_replicates_max_per_size,split_group_a_size,split_group_b_size,split_replicates,bootstrap_replicates
+ca533,17,2,15,3272,136,250,8,9,1000,2000
+fran003,25,2,23,5500,250,250,12,13,1000,2000
+germ012,21,2,19,4420,210,250,10,11,1000,2000

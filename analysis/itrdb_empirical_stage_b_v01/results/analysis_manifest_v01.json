@@ -1,0 +1,105 @@
+{
+  "analysis": "itrdb_empirical_stage_b",
+  "chronology_method": "arithmetic mean",
+  "input_files": {
+    "dataset_contract": {
+      "path": "data/itrdb/empirical_dataset_contract_v01.csv",
+      "sha256": "1e8214c72f073781c70f47837d132091451671e6ffbae5bd5204b2eea1f0c95c"
+    },
+    "membership_manifest": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/membership_manifest_v01.json",
+      "sha256": "8ab940433a3885b361457d9c707a952bb7959c230e8c1620cef0a5a91c058f0e"
+    },
+    "tree_level": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/preprocessed/tree_level_all_methods_v01.csv",
+      "sha256": "e25e5ad48ed571d43085d4e6aea638a1307cc6d25d9566afb6b9bcee7a36e819"
+    }
+  },
+  "min_depth_fraction": 1.0,
+  "outputs": {
+    "bootstrap_summary_v01.csv": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/bootstrap_summary_v01.csv",
+      "sha256": "f8c906e7a574e223da2354a50922838d828989614091132014455ca01fa4cebe"
+    },
+    "ca533_bootstrap_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/ca533_bootstrap_results_v01.csv.gz",
+      "sha256": "c3f9d6fbd8fcab267614b25c584ddd9503165c37ad0a58198c99d9d9b6d6d9ab"
+    },
+    "ca533_loto_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/ca533_loto_results_v01.csv.gz",
+      "sha256": "1e52ff0c66b2c8beb7d2a64bb1401a54e83653f9a69fff9ac8e1e585f09787ef"
+    },
+    "ca533_split_half_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/ca533_split_half_results_v01.csv.gz",
+      "sha256": "6ab1998325d95b6a3d22dd6145f42f5990e07725d04c92781e8f7075ee9efbe0"
+    },
+    "ca533_subset_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/ca533_subset_results_v01.csv.gz",
+      "sha256": "8f938df8ab1d9aaccc564e27dd405a577ed389fbb2471abfa8407eed022f3957"
+    },
+    "detrending_sensitivity_summary_v01.csv": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/detrending_sensitivity_summary_v01.csv",
+      "sha256": "8ac92603fcc03d7e736c8750fa24abc4baf8846257e6ed2efaa455f6f791c593"
+    },
+    "empirical_key_results_v01.csv": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/empirical_key_results_v01.csv",
+      "sha256": "d6b14e02d697d2f358f7acb0a92128127abc16596eb508a4f572b98f34597080"
+    },
+    "fran003_bootstrap_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/fran003_bootstrap_results_v01.csv.gz",
+      "sha256": "aee9b20f68460acea35b42c72fbfa178ba384fdf5e610e65e29986e68d6ed76a"
+    },
+    "fran003_loto_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/fran003_loto_results_v01.csv.gz",
+      "sha256": "cda179ba11adc2d26ef8adf05d07ca916f1121c57f424649c297d8da6bd7839d"
+    },
+    "fran003_split_half_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/fran003_split_half_results_v01.csv.gz",
+      "sha256": "283d60dc4091f4189694908c8e0c63c21de3c03d07bc60bcea3bd344f7ff1880"
+    },
+    "fran003_subset_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/fran003_subset_results_v01.csv.gz",
+      "sha256": "d0d4a136ba7c72c6a7160998dce09da851cbdf8a87c4c2419394371db57e7794"
+    },
+    "germ012_bootstrap_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/germ012_bootstrap_results_v01.csv.gz",
+      "sha256": "bc7cc365ca1a1e242847bdb554133a56b8638d72a589fad599a024f37501668f"
+    },
+    "germ012_loto_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/germ012_loto_results_v01.csv.gz",
+      "sha256": "e89d8fa374aab37ee2c1c36420731ce4fcccbcaa5fd18746720ad2ad4fc35e57"
+    },
+    "germ012_split_half_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/germ012_split_half_results_v01.csv.gz",
+      "sha256": "6d8e0dba4bfac85a62a688600c8d472ba06ef946727baf71b6ee5ccbf33c53e6"
+    },
+    "germ012_subset_results_v01.csv.gz": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/germ012_subset_results_v01.csv.gz",
+      "sha256": "c83db53cf64e184203256a547cd5a63e14f2c18dede5e633846ca6fa82b9d1a2"
+    },
+    "loto_summary_v01.csv": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/loto_summary_v01.csv",
+      "sha256": "27ee70ace62b559655ad67d45b61450960c6186c36968feb2efd027ab67c2ea0"
+    },
+    "split_half_summary_v01.csv": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/split_half_summary_v01.csv",
+      "sha256": "324e695b7b737e6f64a6f80cc78ef9eb5fc5eeb131629b4084123ee7677f5efe"
+    },
+    "structure_summary_v01.csv": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/structure_summary_v01.csv",
+      "sha256": "d7ea762567d520d1271fed920ce0d72fa92441f831123564782c2c89167b96d3"
+    },
+    "subset_summary_v01.csv": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/results/subset_summary_v01.csv",
+      "sha256": "88bd08316d2b95ead4688fc348b7ed41ce7c2f70c0ea909bbba9cde027e3d333"
+    }
+  },
+  "primary_detrending_method": "AgeDepSpline",
+  "software": {
+    "numpy": "2.5.1",
+    "pandas": "3.0.5",
+    "python": "3.14.6"
+  },
+  "tie_tolerance": 1e-12,
+  "version": "v01"
+}

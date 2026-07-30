@@ -251,9 +251,38 @@ rwl = read_chronodiag("measurements.rwl")
 
 ## Immediate next milestone
 
-1. apply the frozen diagnostic profile to ca533, GERM012, FRAN003, and Yoshino;
+1. run and freeze the empirical Stage B profile for ca533, GERM012, and FRAN003;
 2. distinguish positive-control agreement from structural/compositional
-   discordance in the empirical cases;
-3. add sample-depth and temporal-stability diagnostics;
-4. assemble manuscript figures and integrate the Stage A Results text; and
-5. freeze the empirical and simulation Supplement workflows.
+   discordance in those empirical cases;
+3. install and validate the Yoshino raw keycoded measurements before analysis;
+4. integrate the empirical results into the main text and Supplement; and
+5. assess whether temporal or frequency-dependent extensions are required by
+   the empirical findings.
+
+
+## Empirical ITRDB Stage B
+
+The first empirical composition-sensitivity workflow uses three DOI-addressable
+ITRDB datasets with frozen biological-unit maps and value-blind complete-cohort
+selection:
+
+- `ca533`: 17 trees, 27 selected cores, 1727–1968;
+- `GERM012`: 21 trees, 42 selected cores, 1873–1944;
+- `FRAN003`: 25 one-series trees, 1819–1976.
+
+Core/radius series are detrended in R with `dplR`; the primary method is
+`AgeDepSpline`, with `ModNegExp` and a 30-year spline retained as preprocessing
+sensitivities. Cores are averaged within tree, and tree means are z-scored over
+one fixed complete period before composition diagnostics.
+
+The workflow retains explicit subset, disjoint split-half, bootstrap, and LOTO
+memberships and writes deterministic manifests:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File ".\scripts\run_itrdb_empirical_stage_b_v01.ps1" `
+  -ProjectRoot "D:\Dropbox\papers_2026\03f_eps"
+```
+
+The raw ITRDB files are not silently repackaged in the public repository. Their
+DOIs and expected SHA-256 values are recorded under `data/itrdb/`.

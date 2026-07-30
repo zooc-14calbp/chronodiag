@@ -1,0 +1,10 @@
+"dataset","detrending_method","method_role","status","failure_message","analysis_start","analysis_end","analysis_years","n_trees","n_series","input_format","tucson_header","tucson_long","preserve_zero","n_zero_rwi","n_missing_tree_values","minimum_tree_sd","maximum_tree_sd","warning_count"
+"ca533","AgeDepSpline","primary","ok","",1727,1968,242,17,27,"tucson",FALSE,FALSE,TRUE,0,0,0.235397290131548,0.997028073306623,0
+"ca533","ModNegExp","sensitivity","ok","",1727,1968,242,17,27,"tucson",FALSE,FALSE,TRUE,0,0,0.232783324205134,0.546571485280715,0
+"ca533","Spline30","sensitivity","ok","",1727,1968,242,17,27,"tucson",FALSE,FALSE,TRUE,0,0,0.188899272540274,0.436740896098126,0
+"germ012","AgeDepSpline","primary","ok","",1873,1944,72,21,42,"tucson",TRUE,FALSE,TRUE,0,0,0.194013212352444,0.539785101890379,0
+"germ012","ModNegExp","sensitivity","ok","",1873,1944,72,21,42,"tucson",TRUE,FALSE,TRUE,0,0,0.182026694874353,0.413928676338647,0
+"germ012","Spline30","sensitivity","ok","",1873,1944,72,21,42,"tucson",TRUE,FALSE,TRUE,0,0,0.127011323329291,0.309816639066733,0
+"fran003","AgeDepSpline","primary","ok","",1819,1976,158,25,25,"tucson",TRUE,FALSE,TRUE,0,0,0.198277993805878,1.60302353807253,0
+"fran003","ModNegExp","sensitivity","ok","",1819,1976,158,25,25,"tucson",TRUE,FALSE,TRUE,0,0,0.211446137226019,0.778269361439065,0
+"fran003","Spline30","sensitivity","ok","",1819,1976,158,25,25,"tucson",TRUE,FALSE,TRUE,0,0,0.146286098378795,0.228500266208334,0

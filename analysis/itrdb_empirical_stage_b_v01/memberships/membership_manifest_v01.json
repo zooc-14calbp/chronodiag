@@ -1,0 +1,212 @@
+{
+  "analysis": "itrdb_empirical_stage_b_memberships",
+  "bootstrap_replicates": 2000,
+  "datasets": {
+    "ca533": {
+      "dataset_seeds": {
+        "bootstrap": 17121795751974407240,
+        "split": 12248768980029613385
+      },
+      "n_trees": 17,
+      "subset_sizes": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "tree_ids": [
+        "CAM01",
+        "CAM02",
+        "CAM03",
+        "CAM04",
+        "CAM05",
+        "CAM06",
+        "CAM07",
+        "CAM08",
+        "CAM09",
+        "CAM10",
+        "CAM11",
+        "CAM12",
+        "CAM14",
+        "CAM17",
+        "CAM18",
+        "CAM19",
+        "CAM21"
+      ]
+    },
+    "fran003": {
+      "dataset_seeds": {
+        "bootstrap": 643651203752801059,
+        "split": 9830990059260244831
+      },
+      "n_trees": 25,
+      "subset_sizes": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "tree_ids": [
+        "Q 3608",
+        "Q 3609",
+        "Q 3610",
+        "Q 3611",
+        "Q 3612",
+        "Q 3613",
+        "Q 3614",
+        "Q 3615",
+        "Q 3616",
+        "Q 3617",
+        "Q 3618",
+        "Q 3620",
+        "Q 3621",
+        "Q 3622",
+        "Q 3624",
+        "Q 3626",
+        "Q 3627",
+        "Q 3628",
+        "Q 3629",
+        "Q 3630",
+        "Q 3631",
+        "Q 3632",
+        "Q 3633",
+        "Q 3634",
+        "Q3619"
+      ]
+    },
+    "germ012": {
+      "dataset_seeds": {
+        "bootstrap": 10945443260875044442,
+        "split": 6454862485967701846
+      },
+      "n_trees": 21,
+      "subset_sizes": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "tree_ids": [
+        "1101",
+        "1102",
+        "1103",
+        "1104",
+        "1105",
+        "1106",
+        "1107",
+        "1108",
+        "1109",
+        "1110",
+        "1111",
+        "1201",
+        "1202",
+        "1203",
+        "1301",
+        "1302",
+        "1401",
+        "1402",
+        "1403",
+        "1502",
+        "1503"
+      ]
+    }
+  },
+  "files": {
+    "ca533_bootstrap": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/ca533_bootstrap_multiplicities_v01.csv.gz",
+      "rows": 21887,
+      "sha256": "ed25766b7a0215ce0c611d315f8a8f061379d3a93cf4c4b6352d8c327631d458"
+    },
+    "ca533_split": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/ca533_split_half_memberships_v01.csv.gz",
+      "rows": 17000,
+      "sha256": "5efcf457979a5b0ea402a9767e27506b69f27dc20eaeb04b79042a32018e2add"
+    },
+    "ca533_subset": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/ca533_subset_memberships_v01.csv.gz",
+      "rows": 27812,
+      "sha256": "749b572bf7c70454df63ac02920ee3ff94101af59ece6dc18d17b0d801238a83"
+    },
+    "design_summary": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/membership_design_summary_v01.csv",
+      "rows": 3,
+      "sha256": "5e7d123d1d41f6e42b55544a5a1167813a8ed5157486adda888407a15c8ffdd1"
+    },
+    "fran003_bootstrap": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/fran003_bootstrap_multiplicities_v01.csv.gz",
+      "rows": 31913,
+      "sha256": "bff78a4f6d5230181212083d4110cc9961fda8bf618c77e26ed373ba394db826"
+    },
+    "fran003_split": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/fran003_split_half_memberships_v01.csv.gz",
+      "rows": 25000,
+      "sha256": "aa7d9a0ed2e5f8ae0930556e738f4c55ac393badefab9c58f1867788eca8bde3"
+    },
+    "fran003_subset": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/fran003_subset_memberships_v01.csv.gz",
+      "rows": 68750,
+      "sha256": "65cf8e3fb854f2c15295de6aa6bdfa2fbf209efdb893c5f8d4596e62233fb6e0"
+    },
+    "germ012_bootstrap": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/germ012_bootstrap_multiplicities_v01.csv.gz",
+      "rows": 27024,
+      "sha256": "be0fab2465e9678bb44040eb4e3c8cad822543789a5686df40d8290e2c66f154"
+    },
+    "germ012_split": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/germ012_split_half_memberships_v01.csv.gz",
+      "rows": 21000,
+      "sha256": "0d4f0ee2d987dc22b2b21dc0ef0bf1280154a9db6f7cbfe65d4018e2a660e596"
+    },
+    "germ012_subset": {
+      "path": "analysis/itrdb_empirical_stage_b_v01/memberships/germ012_subset_memberships_v01.csv.gz",
+      "rows": 46410,
+      "sha256": "a27a1bb6e0474473ec16f941d6cdce0e684521331b7729a69283a1bf7dfc2a3f"
+    }
+  },
+  "master_seed": 20260730,
+  "max_subsets_per_size": 250,
+  "split_replicates": 1000,
+  "version": "v01"
+}
