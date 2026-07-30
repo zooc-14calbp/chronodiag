@@ -20,6 +20,28 @@ def file_sha256(path: Path) -> str:
     return sha256(path.read_bytes()).hexdigest()
 
 
+def normalized_lf_bytes(path: Path) -> bytes:
+    """Return text bytes after CRLF and lone-CR normalization to LF."""
+    data = path.read_bytes()
+    return data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+
+
+def normalized_lf_sha256(path: Path) -> str:
+    return sha256(normalized_lf_bytes(path)).hexdigest()
+
+
+def normalized_lf_size(path: Path) -> int:
+    return len(normalized_lf_bytes(path))
+
+
+def stable_repository_path(path: Path, repo_root: Path) -> str:
+    resolved = path.resolve()
+    try:
+        return resolved.relative_to(repo_root.resolve()).as_posix()
+    except ValueError:
+        return resolved.as_posix()
+
+
 def select_cohort(
     keymap: pd.DataFrame,
     *,
@@ -89,7 +111,9 @@ def main() -> None:
 
     contract_path = repo_root / "data" / "yoshino" / "yoshino_dataset_contract_v01.csv"
     keymap_path = repo_root / "data" / "yoshino" / "yoshino_keymap_v01.csv"
+    raw_manifest_path = repo_root / "data" / "yoshino" / "yoshino_raw_manifest_v01.csv"
     contract = pd.read_csv(contract_path).iloc[0]
+    raw_manifest = pd.read_csv(raw_manifest_path, encoding="utf-8-sig").iloc[0]
     keymap = pd.read_csv(
         keymap_path,
         dtype={
@@ -160,13 +184,38 @@ def main() -> None:
     if str(best["tree_ids"]).split("|") != selected:
         raise AssertionError("key-map cohort flags do not match value-blind selection")
 
+    required_manifest_fields = {
+        "filename",
+        "source_path",
+        "source_size_bytes",
+        "source_sha256",
+        "normalized_lf_size_bytes",
+        "normalized_lf_sha256",
+        "input_level",
+    }
+    missing_fields = required_manifest_fields.difference(raw_manifest.index)
+    if missing_fields:
+        raise AssertionError(
+            "Yoshino raw manifest lacks dual-hash fields: "
+            + ", ".join(sorted(missing_fields))
+        )
+    observed_normalized_sha = normalized_lf_sha256(raw_path)
+    observed_normalized_size = normalized_lf_size(raw_path)
+    if observed_normalized_sha != str(raw_manifest["normalized_lf_sha256"]):
+        raise AssertionError("Yoshino LF-normalized RWL SHA-256 changed")
+    if observed_normalized_size != int(raw_manifest["normalized_lf_size_bytes"]):
+        raise AssertionError("Yoshino LF-normalized RWL size changed")
+
     source_audit = pd.DataFrame(
         [
             {
                 "dataset": "yoshino",
-                "raw_path": raw_path.as_posix(),
-                "raw_sha256": file_sha256(raw_path),
-                "raw_size_bytes": raw_path.stat().st_size,
+                "repository_path": stable_repository_path(raw_path, repo_root),
+                "source_path": str(raw_manifest["source_path"]),
+                "source_size_bytes": int(raw_manifest["source_size_bytes"]),
+                "source_sha256": str(raw_manifest["source_sha256"]),
+                "normalized_lf_size_bytes": observed_normalized_size,
+                "normalized_lf_sha256": observed_normalized_sha,
                 "n_specimen_mean_series": len(raw_ids),
                 "first_year": int(raw["year"].min()),
                 "last_year": int(raw["year"].max()),

@@ -2,7 +2,7 @@
 
 ## Scientific input
 
-The frozen input used here is `nr_all.rwl`, copied byte-for-byte from:
+The scientific source for the frozen input is `nr_all.rwl`, acquired from:
 
 ```text
 D:\Dropbox\papers_2026\01c_Dendro_2026_yoshino\floatsR0\data_raw\rwl\nr_all.rwl
@@ -50,3 +50,16 @@ T = 155 years
 
 This is an analysis-design constraint for covariance estimation, not a universal
 chronology-quality threshold.
+
+
+## Dual-hash provenance and Git line endings
+
+The original source-byte size and SHA-256 are retained in
+`yoshino_raw_manifest_v01.csv`. The repository `.gitattributes` declares
+`*.rwl text eol=lf`, so Git stores and checks out a canonical LF representation.
+The same manifest therefore also records the size and SHA-256 after CRLF or
+lone-CR normalization to LF.
+
+Validation requires the LF-normalized SHA-256 to match on Windows and Linux.
+The original source-byte SHA-256 remains provenance metadata and is not
+incorrectly compared with a Git-normalized checkout.

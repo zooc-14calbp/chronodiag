@@ -19,6 +19,20 @@ def file_sha256(path: Path) -> str:
     return sha256(path.read_bytes()).hexdigest()
 
 
+def normalized_lf_bytes(path: Path) -> bytes:
+    """Return text bytes after CRLF and lone-CR normalization to LF."""
+    data = path.read_bytes()
+    return data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+
+
+def normalized_lf_sha256(path: Path) -> str:
+    return sha256(normalized_lf_bytes(path)).hexdigest()
+
+
+def normalized_lf_size(path: Path) -> int:
+    return len(normalized_lf_bytes(path))
+
+
 def run_command(arguments: list[str]) -> None:
     completed = subprocess.run(arguments, text=True)
     if completed.returncode != 0:
@@ -79,9 +93,33 @@ def main() -> None:
         repo_root / "data" / "yoshino" / "yoshino_keymap_v01.csv",
         dtype={"series_id": str, "tree_id": str},
     )
-    manifest = pd.read_csv(raw_manifest)
-    if file_sha256(raw_path) != str(manifest["sha256"].iloc[0]):
-        raise AssertionError("Yoshino raw specimen-mean RWL hash changed")
+    manifest = pd.read_csv(raw_manifest, encoding="utf-8-sig")
+    required_manifest_fields = {
+        "source_size_bytes",
+        "source_sha256",
+        "normalized_lf_size_bytes",
+        "normalized_lf_sha256",
+    }
+    missing_fields = required_manifest_fields.difference(manifest.columns)
+    if missing_fields:
+        raise AssertionError(
+            "Yoshino raw manifest lacks dual-hash fields: "
+            + ", ".join(sorted(missing_fields))
+        )
+    if normalized_lf_sha256(raw_path) != str(
+        manifest["normalized_lf_sha256"].iloc[0]
+    ):
+        raise AssertionError("Yoshino LF-normalized specimen-mean RWL hash changed")
+    if normalized_lf_size(raw_path) != int(
+        manifest["normalized_lf_size_bytes"].iloc[0]
+    ):
+        raise AssertionError("Yoshino LF-normalized specimen-mean RWL size changed")
+
+    source_audit = pd.read_csv(analysis_root / "source_audit_v01.csv")
+    if str(source_audit["normalized_lf_sha256"].iloc[0]) != str(
+        manifest["normalized_lf_sha256"].iloc[0]
+    ):
+        raise AssertionError("Yoshino source audit and raw manifest hashes differ")
     if len(keymap) != 60 or keymap["tree_id"].nunique() != 60:
         raise AssertionError("Yoshino key map must contain 60 specimen means")
     selected = keymap[

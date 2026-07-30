@@ -94,3 +94,25 @@ def test_yoshino_manifest_paths_accept_external_temporary_directories(
     inside = REPO_ROOT / "analysis" / "fixture.csv"
     assert generator.stable_manifest_path(inside, REPO_ROOT) == "analysis/fixture.csv"
     assert runner.stable_manifest_path(inside, REPO_ROOT) == "analysis/fixture.csv"
+
+
+def test_yoshino_raw_manifest_is_line_ending_invariant(tmp_path: Path) -> None:
+    validator = load_script("validate_yoshino_empirical_stage_c_v01.py")
+    manifest = pd.read_csv(
+        REPO_ROOT / "data" / "yoshino" / "yoshino_raw_manifest_v01.csv",
+        encoding="utf-8-sig",
+    ).iloc[0]
+    raw = REPO_ROOT / "data" / "yoshino" / "raw" / "nr_all.rwl"
+
+    assert validator.normalized_lf_sha256(raw) == manifest["normalized_lf_sha256"]
+    assert validator.normalized_lf_size(raw) == int(
+        manifest["normalized_lf_size_bytes"]
+    )
+
+    crlf = tmp_path / "crlf.rwl"
+    lf = tmp_path / "lf.rwl"
+    crlf.write_bytes(b"AAA 1900 100\r\nAAA 1910 200\r\n")
+    lf.write_bytes(b"AAA 1900 100\nAAA 1910 200\n")
+    assert validator.normalized_lf_sha256(crlf) == validator.normalized_lf_sha256(lf)
+    assert validator.normalized_lf_size(crlf) == validator.normalized_lf_size(lf)
+

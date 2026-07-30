@@ -47,7 +47,7 @@ Candidates are ranked by maximum specimen count, then maximum interval length,
 then earliest start. The primary cohort is:
 
 \[
-N=50,\qquad 1850	ext{--}2004,\qquad T=155.
+N=50,\qquad 1850\text{--}2004,\qquad T=155.
 \]
 
 The ratio rule is an analysis-design constraint for estimating one complete
@@ -99,7 +99,7 @@ No composite score or pass--fail label is produced.
 The bootstrap is conditional on the observed 50-specimen cohort. The fixed
 complete cohort is not the full 60-specimen archive. High internal coherence does
 not establish climatic meaning. A stable result would nevertheless show that a
-managed, source-mixed archive can provide a collective annual chronology whose
+managed, market-assembled regional archive can provide a collective annual chronology whose
 coherence is not dominated by one arbitrary specimen composition.
 
 ## 9. Portable validation manifests
@@ -110,3 +110,12 @@ external temporary directory. Manifest serialization therefore falls back to an
 absolute POSIX path when a file is outside the repository. Numerical and
 membership equality is checked from table contents; temporary manifest paths are
 not treated as scientific results.
+
+
+## 10. Source-byte and repository-text identity
+
+The Yoshino RWL is an ASCII fixed-width text file. Its original source-byte
+SHA-256 is retained for provenance. Because the repository enforces LF line
+endings for `*.rwl`, reproducibility across Windows and Linux is verified with a
+second SHA-256 after CRLF and lone-CR normalization to LF. These hashes answer
+different questions and are not substituted for one another.
