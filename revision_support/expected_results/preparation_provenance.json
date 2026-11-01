@@ -1,0 +1,8 @@
+{
+  "prepared": "2026-11-02",
+  "original_computational_commit": "da165d0624937e71c4db016cb14cbd1a6c036de2",
+  "eps_baseline_preparation_record_sha256": "b722ef6bd5744f1b7bfe9755fd16b5ce8a5bc5bcc2453df1d7fd6eeab6a6584c",
+  "deff_preparation_record_sha256": "1deb00484351aba0799949ff98b06101a20d00d211388a6299d872349c4bfb58",
+  "scope": "Analytical reference comparisons from frozen complete standardized data and existing memberships; no new resampling or surrogate simulations.",
+  "source_paths": "Repository-relative input paths and their hashes are written by reproduce_revision.py."
+}

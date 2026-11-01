@@ -1,6 +1,7 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param(
-    [string]$ProjectRoot = "D:\Dropbox\papers_2026\03f_eps",
+    [Parameter(Mandatory = $true)]
+    [string]$ProjectRoot,
     [string]$PythonExe,
     [switch]$SkipPlots,
     [switch]$SkipFullValidation

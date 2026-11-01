@@ -1,2 +1,2 @@
 dataset,repository_path,source_path,source_size_bytes,source_sha256,normalized_lf_size_bytes,normalized_lf_sha256,n_specimen_mean_series,first_year,last_year,n_observations_nonmissing,n_zero_width,input_level,status
-yoshino,data/yoshino/raw/nr_all.rwl,D:\Dropbox\papers_2026\01c_Dendro_2026_yoshino\floatsR0\data_raw\rwl\nr_all.rwl,93718,f984629a694fe26801e92eccfe30b73828f7023736f2371f5c3d1dbfa5da3cb7,92417,ea724dca7f10305ceb4a835c8d391243dba8a5b8140007c7e6c212f0020dfe3f,60,1636,2019,12524,0,specimen_mean,ok
+yoshino,data/yoshino/raw/nr_all.rwl,data/yoshino/raw/nr_all.rwl,93718,f984629a694fe26801e92eccfe30b73828f7023736f2371f5c3d1dbfa5da3cb7,92417,ea724dca7f10305ceb4a835c8d391243dba8a5b8140007c7e6c212f0020dfe3f,60,1636,2019,12524,0,specimen_mean,ok

@@ -2,10 +2,10 @@
 
 ## Scientific input
 
-The scientific source for the frozen input is `nr_all.rwl`, acquired from:
+The scientific source for the frozen input is `nr_all.rwl`, included at the repository-relative path:
 
 ```text
-D:\Dropbox\papers_2026\01c_Dendro_2026_yoshino\floatsR0\data_raw\rwl\nr_all.rwl
+data/yoshino/raw/nr_all.rwl
 ```
 
 The file contains **60 specimen-mean ring-width series**, one series per
@@ -63,3 +63,7 @@ lone-CR normalization to LF.
 Validation requires the LF-normalized SHA-256 to match on Windows and Linux.
 The original source-byte SHA-256 remains provenance metadata and is not
 incorrectly compared with a Git-normalized checkout.
+
+Public-release provenance metadata replaces the original workstation path with
+the distributed relative path. Original source-byte and LF-normalized hashes
+remain unchanged. The analysis inputs and results are unchanged.

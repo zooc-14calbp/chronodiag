@@ -8,11 +8,11 @@
     },
     "membership_manifest": {
       "path": "analysis/itrdb_empirical_stage_b_v01/memberships/membership_manifest_v01.json",
-      "sha256": "8ab940433a3885b361457d9c707a952bb7959c230e8c1620cef0a5a91c058f0e"
+      "sha256": "f3d04b871223e118355893ee43f6d6cba3369eac2a31b65aa8b8dd03dea66762"
     },
     "tree_level": {
       "path": "analysis/itrdb_empirical_stage_b_v01/preprocessed/tree_level_all_methods_v01.csv",
-      "sha256": "e25e5ad48ed571d43085d4e6aea638a1307cc6d25d9566afb6b9bcee7a36e819"
+      "sha256": "40d5e2c16b29fde37fe552c81b0c4bb3af40b8278c97b8f3581914d3c3a031e3"
     }
   },
   "min_depth_fraction": 1.0,

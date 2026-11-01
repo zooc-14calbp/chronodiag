@@ -1,6 +1,19 @@
 # Changelog
 
-## Unreleased
+## r4-20261102 — 2 November 2026
+
+- Public research snapshot with a fixed Git tag and GPL-3.0-or-later metadata.
+- Added the analytical EPS comparisons, exact conditional bootstrap mean and
+  effective-dimension identity checks, and point-only empirical Figure 2.
+- Corrected documentation of empirical interpretation and software checks.
+- Replaced workstation-specific provenance paths and wrapper defaults with
+  relative paths or explicit arguments; original source hashes are retained.
+- Refreshed accessible input-hash references in frozen-analysis manifests.
+- Excluded draft manuscript outlines and private-repository setup tooling from
+  the public snapshot. Computational source, input values, memberships and frozen
+  numerical outputs are unchanged.
+
+## Earlier development history
 
 - Replaced empirical RWL auto-detection with a frozen per-dataset Tucson input
   contract (`format`, header presence, long-year policy, and zero-ring policy).

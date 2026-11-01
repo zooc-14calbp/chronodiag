@@ -36,6 +36,9 @@ jobs:
       - name: Reproduce frozen Yoshino empirical Stage C analysis
         if: matrix.python-version == '3.12'
         run: python scripts/validate_yoshino_empirical_stage_c_v01.py
+      - name: Check R4 analytical comparisons
+        if: matrix.python-version == '3.12'
+        run: python revision_support/reproduce_revision.py --skip-figure --output-dir validation_output/r4
 
   r:
     name: R package and parity checks

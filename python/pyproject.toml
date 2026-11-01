@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,6 +7,8 @@ name = "chronodiag"
 version = "0.0.1.dev0"
 description = "Assistive diagnostics for tree-ring chronology coherence"
 readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
 requires-python = ">=3.10"
 authors = [
   {name = "Hitoshi Yonenobu", email = "yn@naruto-u.ac.jp"}
@@ -15,6 +17,10 @@ dependencies = [
   "numpy>=1.24",
   "pandas>=2.0"
 ]
+
+[project.urls]
+Repository = "https://github.com/zooc-14calbp/chronodiag"
+Release = "https://github.com/zooc-14calbp/chronodiag/releases/tag/r4-20261102"
 
 [project.optional-dependencies]
 test = ["pytest>=7"]

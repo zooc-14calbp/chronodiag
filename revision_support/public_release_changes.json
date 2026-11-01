@@ -1,0 +1,56 @@
+{
+  "baseline_commit": "da165d0624937e71c4db016cb14cbd1a6c036de2",
+  "tag": "r4-20261102",
+  "date": "2026-11-02",
+  "computational_implementations_changed": false,
+  "raw_values_memberships_numerical_results_changed": false,
+  "path_only_provenance_updates": [
+    "data/yoshino/yoshino_dataset_contract_v01.csv",
+    "data/yoshino/yoshino_raw_manifest_v01.csv",
+    "analysis/yoshino_empirical_stage_c_v01/source_audit_v01.csv"
+  ],
+  "input_hash_metadata_updates": [
+    {
+      "manifest": "analysis/itrdb_empirical_stage_b_v01/results/analysis_manifest_v01.json",
+      "input": "analysis/itrdb_empirical_stage_b_v01/memberships/membership_manifest_v01.json",
+      "old_sha256": "8ab940433a3885b361457d9c707a952bb7959c230e8c1620cef0a5a91c058f0e",
+      "sha256": "f3d04b871223e118355893ee43f6d6cba3369eac2a31b65aa8b8dd03dea66762"
+    },
+    {
+      "manifest": "analysis/itrdb_empirical_stage_b_v01/results/analysis_manifest_v01.json",
+      "input": "analysis/itrdb_empirical_stage_b_v01/preprocessed/tree_level_all_methods_v01.csv",
+      "old_sha256": "e25e5ad48ed571d43085d4e6aea638a1307cc6d25d9566afb6b9bcee7a36e819",
+      "sha256": "40d5e2c16b29fde37fe552c81b0c4bb3af40b8278c97b8f3581914d3c3a031e3"
+    },
+    {
+      "manifest": "analysis/yoshino_empirical_stage_c_v01/results/analysis_manifest_v01.json",
+      "input": "data/yoshino/yoshino_dataset_contract_v01.csv",
+      "old_sha256": "68aa048fe9f55a4ff9088a74c87dcebe503f25731f925cb87d56b0b9ce548c56",
+      "sha256": "8b0b2200cda97e4087119fbdfb4df9e871bbea78ef7238011b8b73ddba7888dc"
+    },
+    {
+      "manifest": "analysis/yoshino_empirical_stage_c_v01/results/analysis_manifest_v01.json",
+      "input": "analysis/yoshino_empirical_stage_c_v01/memberships/membership_manifest_v01.json",
+      "old_sha256": "d6ae667f15feff3915f6346c159cd5bed973129f5412e846f24bc31eda02b15b",
+      "sha256": "be1d3ed2345785f439d7b90999f7c77bedc8fff6d6fd29d27f08c0e68c908299"
+    },
+    {
+      "manifest": "analysis/yoshino_empirical_stage_c_v01/results/analysis_manifest_v01.json",
+      "input": "analysis/yoshino_empirical_stage_c_v01/preprocessed/tree_level_all_methods_v01.csv",
+      "old_sha256": "9615ac5a64c040f6e74d852b173452998a7fad66fcabf32336fb0053e778e227",
+      "sha256": "be1faeac8c6b383bd8f1b916aaf31da07bc26c04cea4d8c3639d258075bb2a0a"
+    }
+  ],
+  "note": "Hash metadata now describes the exact distributed bytes. Preprocessing and numerical result values have not been recomputed or altered.",
+  "wrapper_portability_updates": [
+    "scripts/run_itrdb_empirical_stage_b_v01.ps1",
+    "scripts/run_yoshino_empirical_stage_c_v01.ps1"
+  ],
+  "removed_from_current_source_tree": [
+    "LICENSE_TO_CHOOSE.md",
+    "design/v03_outline_v01.md",
+    "design/v03_outline_v02.md",
+    "scripts/bootstrap_github_private.ps1"
+  ],
+  "git_history_rewritten": false
+}

@@ -30,3 +30,6 @@ reports/_generated/
 SYNC_MANIFEST*.csv
 VALIDATION_PATCH_MANIFEST*.csv
 PRE_GITHUB_VALIDATION_MANIFEST*.csv
+
+# Regenerated public-revision check outputs
+revision_support/reproduced/

@@ -1,16 +1,16 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param(
-    [string]$RepoRoot = "D:\Dropbox\papers_2026\03f_eps\software\chronodiag",
-    [string]$PythonExe = "$env:LOCALAPPDATA\chronodiag\venv\Scripts\python.exe",
-    [string]$RscriptExe = "C:\Program Files\R\R-4.6.1\bin\x64\Rscript.exe"
+    [string]$RepoRoot = (Split-Path -Parent $PSScriptRoot),
+    [string]$PythonExe = "python",
+    [string]$RscriptExe = "Rscript"
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $RepoRoot = (Resolve-Path -LiteralPath $RepoRoot).Path
-$PythonExe = (Resolve-Path -LiteralPath $PythonExe).Path
-$RscriptExe = (Resolve-Path -LiteralPath $RscriptExe).Path
+$PythonExe = (Get-Command $PythonExe -ErrorAction Stop).Source
+$RscriptExe = (Get-Command $RscriptExe -ErrorAction Stop).Source
 $AnalysisRoot = Join-Path $RepoRoot "analysis\yoshino_empirical_stage_c_v01"
 $RawPath = Join-Path $RepoRoot "data\yoshino\raw\nr_all.rwl"
 

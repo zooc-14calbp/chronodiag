@@ -6,7 +6,8 @@ authors:
   - family-names: Yonenobu
     given-names: Hitoshi
     orcid: "https://orcid.org/0000-0002-1596-7543"
-version: "0.0.1-dev"
-date-released: "2026-07-29"
-repository-code: "TO_BE_ASSIGNED"
-license: "TO_BE_SELECTED"
+version: "r4-20261102"
+date-released: "2026-11-02"
+repository-code: "https://github.com/zooc-14calbp/chronodiag"
+license: "GPL-3.0-or-later"
+url: "https://github.com/zooc-14calbp/chronodiag/releases/tag/r4-20261102"

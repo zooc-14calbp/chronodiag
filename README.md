@@ -4,8 +4,40 @@
 diagnostics of tree-ring chronology coherence**. The R and Python packages are
 native implementations of the same language-neutral scientific specification.
 
-The project is currently a validated development baseline, not a finished public
-release.
+This public research snapshot accompanies manuscript revision R4. The native
+implementations retain their development package versions; the citable snapshot
+is the Git tag [`r4-20261102`](https://github.com/zooc-14calbp/chronodiag/releases/tag/r4-20261102).
+The release asset contains the source, frozen analyses and input data. An
+equivalent package is prepared for open institutional deposit in Tohoku
+University IZUMI. Its archival DOI will be recorded when assigned.
+
+The software is licensed under **GPL-3.0-or-later** (GNU GPL version 3 or any
+later version); see [LICENSE](LICENSE). Third-party inputs retain their source
+terms. Please cite the software snapshot and the associated scientific papers.
+
+## R4 changes
+
+`revision_support/` adds reproducible EPS/SSS reference comparisons, the exact
+conditional bootstrap mean variance-ratio identity, the effective-dimension
+dispersion identity, and the point-only empirical Figure 2. These checks use
+the archived data and memberships, not new resampling or surrogate series.
+The empirical median differences are largely anticipated by EPS and comparison
+sizes. Tails and structure remain descriptive rather than calibrated tests of
+population nonexchangeability. Composition changes may still matter for an
+adopted chronology, independently of how unusual they are under a population
+model. The computational implementations and frozen numerical results are
+unchanged from the original analysis snapshot.
+
+Run the added comparisons from the repository root:
+
+```text
+python -m pip install -e "python[figures]"
+python revision_support/reproduce_revision.py --output-dir /path/to/output
+```
+
+The exact public-release changes and original-data preservation are recorded in
+`revision_support/public_release_changes.json`. The public source package omits
+submission documents, reviewer correspondence and draft manuscript outlines.
 
 ## Scientific position
 
@@ -202,17 +234,17 @@ The numerical and interpretive contracts are:
 - `analysis/`: frozen machine-readable manuscript analyses;
 - `data/yoshino/`: public Yoshino worked-example location;
 - `data/itrdb/`: DOI and hash manifest for public ITRDB validation datasets;
-- `design/`: manuscript outline, mathematical specifications, and analysis plans;
+- `design/`: mathematical specifications, analysis plans and historical validation records;
 - `.github/workflows/`: cross-language CI.
 
 ## Yoshino example
 
-The Yoshino raw ring-width dataset may be included as a public worked example.
-Its measurement keycode is the authoritative identifier. The workflow will
-reconstruct specimen-level biological units from that key rather than duplicate
-extensive metadata or distribute precomputed specimen means as a second source of
-truth. The original Yoshino publication remains the scientific description of
-the material and chronology construction.
+The supplied `data/yoshino/raw/nr_all.rwl` contains 60 specimen-mean series.
+The complete-cohort analysis uses 50 specimens over 1850–2004. The measurement
+keys are preserved, and the raw source and LF-normalized hashes are recorded
+under `data/yoshino/`. Multiple radii were averaged upstream in the Yoshino
+workflow. The separate 72-radius measurement archive is not included. See the
+data contract and Yonenobu et al. (2026), DOI: 10.1016/j.dendro.2026.126572.
 
 ## Quick start
 
@@ -233,32 +265,18 @@ wide = read_chronodiag("measurements.csv")
 rwl = read_chronodiag("measurements.rwl")
 ```
 
-## Validation status
+## Checks and scope
 
-- The integrated Python suite contains 50 baseline, composition, bootstrap, LOTO,
-  and same-EPS Stage A tests and is enforced on Python 3.10, 3.12, and 3.13.
-- A separate integration audit successfully reads six full ITRDB files: ca533,
-  germ011, germ012, germ6, fran003, and brit042.
-- ca533 retains all 23,276 observations, including 234 zero-width rings.
-- A Python wheel builds successfully and reproduces the six-file ITRDB audit when
-  installed from the wheel.
-- The R package passes shared metric, RWL I/O, subset/split-half,
-  bootstrap/LOTO, and same-EPS Stage A parity checks.
-- `R CMD check` is enforced with errors on warnings.
-- Frozen R/Python fixtures cover subset-to-full, disjoint split-half, explicit
-  tree bootstrap, LOTO influence, exact EPS/SSS linkage, and the controlled
-  same-EPS experiment.
-
-## Immediate next milestone
-
-1. run and freeze the empirical Stage B profile for ca533, GERM012, and FRAN003;
-2. distinguish positive-control agreement from structural/compositional
-   discordance in those empirical cases;
-3. install and validate the Yoshino raw keycoded measurements before analysis;
-4. integrate the empirical results into the main text and Supplement; and
-5. assess whether temporal or frequency-dependent extensions are required by
-   the empirical findings.
-
+The repository includes analytical reference cases, deterministic shared R/Python
+fixtures, Python and R unit tests, package checks, raw-input hashes and format
+audits. Stage A validators regenerate the controlled analysis. Stage B/C
+validators regenerate memberships and numerical diagnostics from archived
+preprocessed series; those validators do not rerun R/dplR detrending from raw
+measurements. The scripts and historical environment records state the relevant
+versions and inputs. These checks concern specified calculations, not a claim
+of error-free software or comparative scientific performance. See
+[DISCLAIMER.md](DISCLAIMER.md) and `revision_support/VALIDATION.md` for the checks
+run when preparing this snapshot.
 
 ## Empirical ITRDB Stage B
 
@@ -281,8 +299,13 @@ memberships and writes deterministic manifests:
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass `
   -File ".\scripts\run_itrdb_empirical_stage_b_v01.ps1" `
-  -ProjectRoot "D:\Dropbox\papers_2026\03f_eps"
+  -ProjectRoot "C:\path\to\EPS-data-project"
 ```
 
-The raw ITRDB files are not silently repackaged in the public repository. Their
-DOIs and expected SHA-256 values are recorded under `data/itrdb/`.
+The Git tree records ITRDB source DOIs and expected hashes under `data/itrdb/`.
+The downloadable public release additionally includes the six corresponding
+raw RWL files under `external_data/itrdb_raw/`, with original source attribution.
+The complete raw-preprocessing wrapper expects an explicitly supplied project
+directory containing its `data/itrdb_raw/` and `data/itrdb_metadata/` inputs.
+The frozen-output validators and R4 comparison script use the repository's
+archived preprocessed series and do not require that external project layout.
