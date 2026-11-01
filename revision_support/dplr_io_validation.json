@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-02",
+  "r_version": "4.6.1",
+  "dplr_versions": ["1.7.9", "1.8.0"],
+  "rwl_format": "tucson",
+  "preserve_zero": true,
+  "raw_input_files_unchanged": true,
+  "comparison_tolerance": 9.9999999999999998e-13,
+  "inputs": {
+    "brit042.rwl": {
+      "series": 28,
+      "cells": 9632,
+      "nonmissing": 5720,
+      "genuine_zeros": 0,
+      "original_vs_repaired_179_max_abs_difference": 0,
+      "original_179_vs_repaired_180_max_abs_difference": 4.4408920985006262e-16,
+      "ids_years_missing_masks_equal": true
+    },
+    "ca533.rwl": {
+      "series": 34,
+      "cells": 46172,
+      "nonmissing": 23170,
+      "genuine_zeros": 234,
+      "original_vs_repaired_179_max_abs_difference": 0,
+      "original_179_vs_repaired_180_max_abs_difference": 4.4408920985006262e-16,
+      "ids_years_missing_masks_equal": true
+    },
+    "fran003.rwl": {
+      "series": 25,
+      "cells": 11225,
+      "nonmissing": 7994,
+      "genuine_zeros": 0,
+      "original_vs_repaired_179_max_abs_difference": 0,
+      "original_179_vs_repaired_180_max_abs_difference": 2.2204460492503131e-16,
+      "ids_years_missing_masks_equal": true
+    },
+    "germ011.rwl": {
+      "series": 66,
+      "cells": 41580,
+      "nonmissing": 8520,
+      "genuine_zeros": 0,
+      "original_vs_repaired_179_max_abs_difference": 0,
+      "original_179_vs_repaired_180_max_abs_difference": 8.8817841970012523e-16,
+      "ids_years_missing_masks_equal": true
+    },
+    "germ012.rwl": {
+      "series": 44,
+      "cells": 7480,
+      "nonmissing": 5110,
+      "genuine_zeros": 0,
+      "original_vs_repaired_179_max_abs_difference": 0,
+      "original_179_vs_repaired_180_max_abs_difference": 8.8817841970012523e-16,
+      "ids_years_missing_masks_equal": true
+    },
+    "germ6.rwl": {
+      "series": 138,
+      "cells": 82386,
+      "nonmissing": 14104,
+      "genuine_zeros": 0,
+      "original_vs_repaired_179_max_abs_difference": 0,
+      "original_179_vs_repaired_180_max_abs_difference": 1.7763568394002505e-15,
+      "ids_years_missing_masks_equal": true
+    },
+    "nr_all.rwl": {
+      "series": 60,
+      "cells": 23040,
+      "nonmissing": 12524,
+      "genuine_zeros": 0,
+      "original_vs_repaired_179_max_abs_difference": 0,
+      "original_179_vs_repaired_180_max_abs_difference": 1.7763568394002505e-15,
+      "ids_years_missing_masks_equal": true
+    }
+  }
+}

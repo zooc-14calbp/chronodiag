@@ -25,8 +25,17 @@ The empirical median differences are largely anticipated by EPS and comparison
 sizes. Tails and structure remain descriptive rather than calibrated tests of
 population nonexchangeability. Composition changes may still matter for an
 adopted chronology, independently of how unusual they are under a population
-model. The computational implementations and frozen numerical results are
-unchanged from the original analysis snapshot.
+model. The analytical kernels and frozen numerical results are unchanged from
+the original analysis snapshot.
+
+The R input adapter also preserves explicit blank/dot missing fields with both
+dplR 1.7.9 and 1.8.0. It prepares a temporary read copy and restores the missing
+values after parsing; raw files, genuine zeros, stop markers and precision are
+preserved. Seven distributed raw inputs gave matching series/year keys, missing
+masks and values across these versions (maximum rounding difference below
+`2e-15`). Known Tucson inputs were checked with `rwl_format = "tucson"` to avoid
+older dplR format autodetection treating comma-containing headers as CSV. See
+`revision_support/dplr_io_validation.json`.
 
 Run the added comparisons from the repository root:
 

@@ -2,6 +2,9 @@
 
 ## r4-20261102 — 2 November 2026
 
+- Preserve explicit blank/dot Tucson missing fields across dplR 1.7.9 and 1.8.0
+  using a temporary read copy; add regression checks for zeros, precision,
+  terminators and raw-byte preservation.
 - Public research snapshot with a fixed Git tag and GPL-3.0-or-later metadata.
 - Added the analytical EPS comparisons, exact conditional bootstrap mean and
   effective-dimension identity checks, and point-only empirical Figure 2.
@@ -10,8 +13,9 @@
   relative paths or explicit arguments; original source hashes are retained.
 - Refreshed accessible input-hash references in frozen-analysis manifests.
 - Excluded draft manuscript outlines and private-repository setup tooling from
-  the public snapshot. Computational source, input values, memberships and frozen
-  numerical outputs are unchanged.
+  the public snapshot. Analytical kernels, original fixtures, input values,
+  memberships and frozen numerical outputs are unchanged; the R input adapter
+  has the compatibility repair described above.
 
 ## Earlier development history
 

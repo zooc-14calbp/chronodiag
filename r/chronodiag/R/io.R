@@ -130,13 +130,25 @@ read_long_csv <- function(path, key_parser = NULL, drop_missing = TRUE, ...) {
 .tucson_explicit_missing_cells <- function(path) {
   lines <- readLines(path, warn = FALSE)
   if (!length(lines)) {
-    return(data.frame(series_id = character(), year = integer(), stringsAsFactors = FALSE))
+    return(data.frame(series_id = character(), year = integer(),
+                      line_index = integer(), field_start = integer(),
+                      field_end = integer(), normalize = logical(),
+                      stringsAsFactors = FALSE))
   }
 
   missing_series <- character()
   missing_year <- integer()
+  missing_line <- integer()
+  missing_start <- integer()
+  missing_end <- integer()
+  normalize <- logical()
+  before_999 <- logical()
+  before_9999 <- logical()
+  final_year <- list()
+  final_marker <- list()
 
-  for (line in lines) {
+  for (line_index in seq_along(lines)) {
+    line <- lines[[line_index]]
     if (!nzchar(trimws(line)) || startsWith(trimws(line), "#")) next
 
     parsed <- FALSE
@@ -166,21 +178,46 @@ read_long_csv <- function(path, key_parser = NULL, drop_missing = TRUE, ...) {
     if (!parsed || nchar(line, type = "chars") <= 12L) next
 
     n_fields <- ceiling((nchar(line, type = "chars") - 12L) / 6L)
+    content_end <- nchar(sub("[[:blank:]]+$", "", line), type = "chars")
+    # A 999 value is a genuine 0.999 mm ring when the series ends in -9999.
+    # Match the declared precision of the final dated record in each series.
+    last_start <- 13L + 6L * floor((content_end - 13L) / 6L)
+    last_token <- trimws(substr(line, last_start, content_end))
+    if (is.null(final_year[[series_id]]) || start_year >= final_year[[series_id]]) {
+      final_year[[series_id]] <- start_year
+      final_marker[[series_id]] <- if (identical(last_token, "-9999")) "-9999" else "999"
+    }
+    terminated_999 <- FALSE
+    terminated_9999 <- FALSE
     for (j in seq_len(n_fields)) {
       field_start <- 13L + 6L * (j - 1L)
       field_end <- min(field_start + 5L, nchar(line, type = "chars"))
       field <- substr(line, field_start, field_end)
       token <- trimws(field)
+      if (identical(token, "999")) terminated_999 <- TRUE
+      if (identical(token, "-9999")) terminated_9999 <- TRUE
       if (!nzchar(token) || identical(token, ".")) {
         missing_series <- c(missing_series, series_id)
         missing_year <- c(missing_year, start_year + j - 1L)
+        missing_line <- c(missing_line, line_index)
+        missing_start <- c(missing_start, field_start)
+        missing_end <- c(missing_end, field_end)
+        normalize <- c(normalize, field_start <= content_end)
+        before_999 <- c(before_999, !terminated_999)
+        before_9999 <- c(before_9999, !terminated_9999)
       }
     }
   }
 
+  markers <- vapply(missing_series, function(id) final_marker[[id]], character(1))
+  normalize <- normalize & ifelse(markers == "-9999", before_9999, before_999)
   data.frame(
     series_id = missing_series,
     year = missing_year,
+    line_index = missing_line,
+    field_start = missing_start,
+    field_end = missing_end,
+    normalize = normalize,
     stringsAsFactors = FALSE
   )
 }
@@ -205,16 +242,29 @@ read_tucson_rwl <- function(path, key_parser = NULL, drop_missing = TRUE,
     stop("preserve_zero must be TRUE or FALSE")
   }
 
-  # dplR deliberately preserves zero-width rings when edge.zeros = TRUE.  On
-  # some R/read.fwf combinations, however, a physically present all-blank
-  # six-character Tucson field is converted to numeric zero before dplR can
-  # distinguish it from a genuine zero-width ring.  Record explicit blanks (and
-  # dot missing tokens) from the source bytes first, then restore them after
-  # dplR has handled the remaining Tucson details and precision conversion.
+  # Preserve explicit missing fields across dplR readers: older versions may
+  # turn blanks into zero, while 1.8.0 rejects an otherwise aligned blank field
+  # during its fixed-width/whitespace comparison. Use temporary numeric
+  # placeholders only for these known missing cells, then restore their NA
+  # values. Genuine zeros, stop markers and post-marker padding are untouched.
   explicit_missing <- .tucson_explicit_missing_cells(path)
+  read_path <- path
+  cells <- which(explicit_missing$normalize)
+  if (length(cells)) {
+    prepared_lines <- readLines(path, warn = FALSE)
+    for (i in cells) {
+      row <- explicit_missing$line_index[i]
+      first <- explicit_missing$field_start[i]
+      last <- explicit_missing$field_end[i]
+      substr(prepared_lines[row], first, last) <- sprintf("%*d", last - first + 1L, 0L)
+    }
+    read_path <- tempfile(fileext = ".rwl")
+    on.exit(unlink(read_path), add = TRUE)
+    writeLines(prepared_lines, read_path, useBytes = TRUE)
+  }
 
   wide <- dplR::read.rwl(
-    path, format = rwl_format, edge.zeros = preserve_zero, ...
+    read_path, format = rwl_format, edge.zeros = preserve_zero, ...
   )
   if (!is.data.frame(wide)) stop("dplR::read.rwl() did not return a wide rwl data frame")
   years <- suppressWarnings(as.integer(rownames(wide)))

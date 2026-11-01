@@ -2,7 +2,6 @@
   "baseline_commit": "da165d0624937e71c4db016cb14cbd1a6c036de2",
   "tag": "r4-20261102",
   "date": "2026-11-02",
-  "computational_implementations_changed": false,
   "raw_values_memberships_numerical_results_changed": false,
   "path_only_provenance_updates": [
     "data/yoshino/yoshino_dataset_contract_v01.csv",
@@ -41,7 +40,7 @@
       "sha256": "be1faeac8c6b383bd8f1b916aaf31da07bc26c04cea4d8c3639d258075bb2a0a"
     }
   ],
-  "note": "Hash metadata now describes the exact distributed bytes. Preprocessing and numerical result values have not been recomputed or altered.",
+  "note": "Hash metadata describes the exact distributed bytes. Analytical kernels, raw inputs, preprocessed values, memberships and numerical outputs are unchanged. The R input adapter has the documented dependency-compatibility repair.",
   "wrapper_portability_updates": [
     "scripts/run_itrdb_empirical_stage_b_v01.ps1",
     "scripts/run_yoshino_empirical_stage_c_v01.ps1"
@@ -52,5 +51,19 @@
     "design/v03_outline_v02.md",
     "scripts/bootstrap_github_private.ps1"
   ],
-  "git_history_rewritten": false
+  "git_history_rewritten": false,
+  "analytical_kernels_changed": false,
+  "r_input_adapter_compatibility_fix": {
+    "changed_source_files": [
+      "r/chronodiag/R/io.R",
+      "r/chronodiag/tests/testthat/test-io.R"
+    ],
+    "tested_dplr_versions": [
+      "1.7.9",
+      "1.8.0"
+    ],
+    "original_fixture_bytes_changed": false,
+    "description": "Normalize explicit blank/dot missing fields in a temporary copy before dplR parsing; restore the missing-value mask. Determine each actual stop marker from the final dated series record, preserving genuine zeros, 0.999 mm measurements, precision and post-marker padding.",
+    "published_raw_input_comparison": "dplr_io_validation.json"
+  }
 }

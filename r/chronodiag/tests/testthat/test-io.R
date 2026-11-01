@@ -37,3 +37,40 @@ test_that("Tucson blank missing cells remain distinct from zero-width rings", {
   expect_true(is.na(out$value[out$series_id == "MISS01" & out$year == 1901]))
   expect_equal(attr(out, "explicit_missing_cells"), 1L)
 })
+
+test_that("Tucson missing-field compatibility preserves precision, stops and zeros", {
+  skip_if_not_installed("dplR")
+  f <- tempfile(fileext = ".rwl")
+  records <- c(
+    "EDGE01  1900     0   100     0   999",
+    "MISS01  1900   100         200   999            ",
+    "DOT001  1900   999     .  2345 -9999            "
+  )
+  writeLines(records, f, useBytes = TRUE)
+  original <- readBin(f, "raw", n = file.info(f)$size)
+
+  expect_warning(out <- read_tucson_rwl(f, drop_missing = FALSE), NA)
+  expect_setequal(unique(out$series_id), c("EDGE01", "MISS01", "DOT001"))
+  expect_equal(sort(unique(out$year)), 1900:1902)
+  expect_equal(out$value[out$series_id == "EDGE01"], c(0, 1, 0))
+  expect_equal(out$value[out$series_id == "MISS01"], c(1, NA, 2))
+  expect_equal(out$value[out$series_id == "DOT001"], c(0.999, NA, 2.345))
+  expect_identical(readBin(f, "raw", n = file.info(f)$size), original)
+
+  without_zeros <- read_tucson_rwl(f, drop_missing = FALSE, preserve_zero = FALSE)
+  expect_equal(without_zeros$value[without_zeros$series_id == "EDGE01"], c(NA, 1, NA))
+  expect_equal(without_zeros$value[without_zeros$series_id == "MISS01"], c(1, NA, 2))
+  expect_equal(without_zeros$value[without_zeros$series_id == "DOT001"], c(0.999, NA, 2.345))
+})
+
+test_that("micrometre precision is taken from the final series record", {
+  skip_if_not_installed("dplR")
+  f <- tempfile(fileext = ".rwl")
+  writeLines(c(
+    "MICRO1  1907   999        1000",
+    "MICRO1  1910  2345 -9999            "
+  ), f, useBytes = TRUE)
+  out <- read_tucson_rwl(f, drop_missing = FALSE)
+  expect_equal(out$year, 1907:1910)
+  expect_equal(out$value, c(0.999, NA, 1.000, 2.345))
+})
