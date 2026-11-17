@@ -322,8 +322,8 @@ On Windows PowerShell:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass `
-  -File ".\\scripts\\run_itrdb_empirical_stage_b_v01.ps1" `
-  -ProjectRoot "C:\\path\\to\\EPS-data-project"
+  -File ".\scripts\run_itrdb_empirical_stage_b_v01.ps1" `
+  -ProjectRoot "C:\path\to\EPS-data-project"
 ```
 
 On macOS or Linux, from zsh, bash, or another shell, use the POSIX shell
