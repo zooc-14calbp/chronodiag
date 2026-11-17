@@ -314,13 +314,34 @@ sensitivities. Cores are averaged within tree, and tree means are z-scored over
 one fixed complete period before composition diagnostics.
 
 The workflow retains explicit subset, disjoint split-half, bootstrap, and LOTO
-memberships and writes deterministic manifests:
+memberships and writes deterministic manifests. Run it from the repository root
+with Python 3 (and the package dependencies) and R with `dplR` installed.
+`matplotlib` is optional for figures.
+
+On Windows PowerShell:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass `
-  -File ".\scripts\run_itrdb_empirical_stage_b_v01.ps1" `
-  -ProjectRoot "C:\path\to\EPS-data-project"
+  -File ".\\scripts\\run_itrdb_empirical_stage_b_v01.ps1" `
+  -ProjectRoot "C:\\path\\to\\EPS-data-project"
 ```
+
+On macOS or Linux, from zsh, bash, or another shell, use the POSIX shell
+wrapper in a current checkout:
+
+```sh
+python3 -m pip install -e "python[figures]"
+sh scripts/run_itrdb_empirical_stage_b_v01.sh /absolute/path/to/EPS-data-project
+```
+
+Set `PYTHON=/path/to/python3` before `sh` to choose a different Python
+environment, or append `--skip-plots` to omit figure generation. Both wrappers
+run the cohort audit, R preprocessing, membership generation, composition
+diagnostics, and Stage B validator. The Windows wrapper additionally runs the
+broader PowerShell-based local validation. The R and Python packages are
+cross-platform; their automated CI checks run on Linux. The complete raw-data
+workflow and this shell wrapper have not been tested in macOS CI, so macOS
+reproduction should be checked against the archived validation outputs.
 
 The Git tree records ITRDB source DOIs and expected hashes under `data/itrdb/`.
 The downloadable public release additionally includes the six corresponding
