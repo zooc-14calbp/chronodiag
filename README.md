@@ -4,16 +4,27 @@
 diagnostics of tree-ring chronology coherence**. The R and Python packages are
 native implementations of the same language-neutral scientific specification.
 
-This public research snapshot accompanies manuscript revision R4. The native
-implementations retain their development package versions; the citable snapshot
-is the Git tag [`r4-20261102`](https://github.com/zooc-14calbp/chronodiag/releases/tag/r4-20261102).
-The release asset contains the source, frozen analyses and input data. An
-equivalent package is prepared for open institutional deposit in Tohoku
-University IZUMI. Its archival DOI will be recorded when assigned.
+This public research snapshot accompanies the article:
+
+> Yonenobu, H., Hoshino, Y., and Ohyama, M. (2026). Interpreting the expressed
+> population signal: Reliability, covariance structure, and composition
+> sensitivity in tree-ring chronologies. *Dendrochronologia*.
+> https://doi.org/10.1016/j.dendro.2026.126629
+
+The article uses `chronodiag`. If you use this software in research, please
+cite the article above and identify the software version or release used. The
+native R and Python implementations retain their development package versions;
+the article-linked research snapshot is the Git tag
+[`r4-20261102`](https://github.com/zooc-14calbp/chronodiag/releases/tag/r4-20261102).
+The release asset contains the source, frozen analyses, and input data. A
+matching code-and-data ZIP is also available from
+[Tohoku University IZUMI](https://nc.rdx.tohoku.ac.jp/s/NafsxNLN5Antj64)
+without a password; no DOI has been assigned to that archive.
 
 The software is licensed under **GPL-3.0-or-later** (GNU GPL version 3 or any
 later version); see [LICENSE](LICENSE). Third-party inputs retain their source
-terms. Please cite the software snapshot and the associated scientific papers.
+terms. The citation request above is scholarly attribution guidance and does
+not add a condition to the GPL license.
 
 ## R4 changes
 
