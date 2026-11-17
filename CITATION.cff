@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Please cite the software and the associated paper."
+message: "If you use chronodiag in research, please cite the associated Dendrochronologia article and identify the software version used."
 title: "chronodiag: Assistive diagnostics for tree-ring chronology coherence"
 type: software
 authors:
@@ -11,3 +11,16 @@ date-released: "2026-11-02"
 repository-code: "https://github.com/zooc-14calbp/chronodiag"
 license: "GPL-3.0-or-later"
 url: "https://github.com/zooc-14calbp/chronodiag/releases/tag/r4-20261102"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Yonenobu
+      given-names: Hitoshi
+    - family-names: Hoshino
+      given-names: Yasuharu
+    - family-names: Ohyama
+      given-names: Motonari
+  title: "Interpreting the expressed population signal: Reliability, covariance structure, and composition sensitivity in tree-ring chronologies"
+  journal: "Dendrochronologia"
+  year: 2026
+  doi: "10.1016/j.dendro.2026.126629"
